@@ -7,3 +7,4 @@
 | Jeffrey Wu | User Interface Specialist |
 | Oscar Song | Software Development Lead |
 | Spencer Wilson | Project Manager |
+| Benny Fung | Quality Assurance Lead |
