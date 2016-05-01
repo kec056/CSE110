@@ -22,82 +22,78 @@ if (_meteor.Meteor.isServer) {                                               // 
   // Only publish tasks that are public or belong to the current user        //
   _meteor.Meteor.publish('tasks', function () {                              // 10
     function tasksPublication() {                                            // 10
-      return Tasks.find({                                                    // 11
-        $or: [{ 'private': { $ne: true } }, { owner: this.userId }]          // 12
-      });                                                                    //
+      return Tasks.find({ owner: this.userId });                             // 11
     }                                                                        //
                                                                              //
     return tasksPublication;                                                 //
   }());                                                                      //
 }                                                                            //
                                                                              //
-_meteor.Meteor.methods({                                                     // 20
-  'tasks.insert': function () {                                              // 21
+_meteor.Meteor.methods({                                                     // 15
+  'tasks.insert': function () {                                              // 16
     function tasksInsert(text) {                                             //
-      (0, _check.check)(text, String);                                       // 22
+      (0, _check.check)(text, String);                                       // 17
                                                                              //
       // Make sure the user is logged in before inserting a task             //
-      if (!_meteor.Meteor.userId()) {                                        // 21
-        throw new _meteor.Meteor.Error('not-authorized');                    // 26
+      if (!this.userId) {                                                    // 16
+        throw new _meteor.Meteor.Error('not-authorized');                    // 21
       }                                                                      //
                                                                              //
-      Tasks.insert({                                                         // 29
-        text: text,                                                          // 30
-        createdAt: new Date(),                                               // 31
-        owner: _meteor.Meteor.userId(),                                      // 32
-        username: _meteor.Meteor.user().username                             // 33
+      Tasks.insert({                                                         // 24
+        text: text,                                                          // 25
+        createdAt: new Date(),                                               // 26
+        owner: this.userId,                                                  // 27
+        username: _meteor.Meteor.users.findOne(this.userId).username         // 28
       });                                                                    //
     }                                                                        //
                                                                              //
     return tasksInsert;                                                      //
   }(),                                                                       //
-  'tasks.remove': function () {                                              // 36
+  'tasks.remove': function () {                                              // 31
     function tasksRemove(taskId) {                                           //
-      (0, _check.check)(taskId, String);                                     // 37
+      (0, _check.check)(taskId, String);                                     // 32
                                                                              //
-      var task = Tasks.findOne(taskId);                                      // 39
-      if (task['private'] && task.owner !== _meteor.Meteor.userId()) {       // 40
+      var task = Tasks.findOne(taskId);                                      // 34
+      if (task['private'] && task.owner !== this.userId) {                   // 35
         // If the task is private, make sure only the owner can delete it    //
-        throw new _meteor.Meteor.Error('not-authorized');                    // 42
+        throw new _meteor.Meteor.Error('not-authorized');                    // 37
       }                                                                      //
                                                                              //
-      Tasks.remove(taskId);                                                  // 45
+      Tasks.remove(taskId);                                                  // 40
     }                                                                        //
                                                                              //
     return tasksRemove;                                                      //
   }(),                                                                       //
-  'tasks.setChecked': function () {                                          // 47
+  'tasks.setChecked': function () {                                          // 42
     function tasksSetChecked(taskId, setChecked) {                           //
-      (0, _check.check)(taskId, String);                                     // 48
-      (0, _check.check)(setChecked, Boolean);                                // 49
+      (0, _check.check)(taskId, String);                                     // 43
+      (0, _check.check)(setChecked, Boolean);                                // 44
                                                                              //
-      var task = Tasks.findOne(taskId);                                      // 51
-      if (task['private'] && task.owner !== _meteor.Meteor.userId()) {       // 52
+      var task = Tasks.findOne(taskId);                                      // 46
+      if (task.owner !== this.userId) {                                      // 47
         // If the task is private, make sure only the owner can check it off
-        throw new _meteor.Meteor.Error('not-authorized');                    // 54
+        throw new _meteor.Meteor.Error('not-authorized');                    // 49
       }                                                                      //
                                                                              //
-      Tasks.update(taskId, { $set: { checked: setChecked } });               // 57
+      Tasks.update(taskId, { $set: { checked: setChecked } });               // 52
     }                                                                        //
                                                                              //
     return tasksSetChecked;                                                  //
   }(),                                                                       //
-  'tasks.setPrivate': function () {                                          // 59
-    function tasksSetPrivate(taskId, setToPrivate) {                         //
-      (0, _check.check)(taskId, String);                                     // 60
-      (0, _check.check)(setToPrivate, Boolean);                              // 61
+  'tasks.edit': function () {                                                // 54
+    function tasksEdit(taskId, text) {                                       //
+      (0, _check.check)(taskId, String);                                     // 55
+      (0, _check.check)(text, String);                                       // 56
                                                                              //
-      var task = Tasks.findOne(taskId);                                      // 63
-                                                                             //
-      // Make sure only the task owner can make a task private               //
-      if (task.owner !== _meteor.Meteor.userId()) {                          // 59
-        throw new _meteor.Meteor.Error('not-authorized');                    // 67
+      var task = Tasks.findOne(taskId);                                      // 58
+      if (task.owner !== this.userId) {                                      // 59
+        throw new _meteor.Meteor.Error('not-authorized');                    // 60
       }                                                                      //
                                                                              //
-      Tasks.update(taskId, { $set: { 'private': setToPrivate } });           // 70
+      Tasks.update(taskId, { $set: { text: text } });                        // 63
     }                                                                        //
                                                                              //
-    return tasksSetPrivate;                                                  //
+    return tasksEdit;                                                        //
   }()                                                                        //
 });                                                                          //
 ///////////////////////////////////////////////////////////////////////////////
@@ -113,6 +109,6 @@ _meteor.Meteor.methods({                                                     // 
 require('../imports/api/tasks.js');                                          // 1
 ///////////////////////////////////////////////////////////////////////////////
 
-}]}},{"extensions":[".js",".json"]});
+}]}},{"extensions":[".js",".json",".jsx"]});
 require("./server/main.js");
 //# sourceMappingURL=app.js.map

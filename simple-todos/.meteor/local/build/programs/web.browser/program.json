@@ -130,11 +130,11 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/packages/modules.js?hash=19119a7f648fd881fe877c789fe328f13ba9d5ec",
+      "url": "/packages/modules.js?hash=f5f3083765a71b860391ce46ce497bafe7967755",
       "sourceMap": "packages/modules.js.map",
-      "sourceMapUrl": "/packages/19119a7f648fd881fe877c789fe328f13ba9d5ec.map",
-      "size": 297744,
-      "hash": "19119a7f648fd881fe877c789fe328f13ba9d5ec"
+      "sourceMapUrl": "/packages/f5f3083765a71b860391ce46ce497bafe7967755.map",
+      "size": 2911290,
+      "hash": "f5f3083765a71b860391ce46ce497bafe7967755"
     },
     {
       "path": "packages/es5-shim.js",
@@ -380,15 +380,26 @@
       "hash": "555d6f310158f363207df43e0353de4a4883d7af"
     },
     {
-      "path": "packages/reactive-dict.js",
+      "path": "packages/tmeasday_check-npm-versions.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/packages/reactive-dict.js?hash=8a78efb82b75a8822118656632a6dc7d4a185c62",
-      "sourceMap": "packages/reactive-dict.js.map",
-      "sourceMapUrl": "/packages/8a78efb82b75a8822118656632a6dc7d4a185c62.map",
-      "size": 38864,
-      "hash": "8a78efb82b75a8822118656632a6dc7d4a185c62"
+      "url": "/packages/tmeasday_check-npm-versions.js?hash=a3f5d3f02884d149ed9061027e0fc0621add56a3",
+      "sourceMap": "packages/tmeasday_check-npm-versions.js.map",
+      "sourceMapUrl": "/packages/a3f5d3f02884d149ed9061027e0fc0621add56a3.map",
+      "size": 138952,
+      "hash": "a3f5d3f02884d149ed9061027e0fc0621add56a3"
+    },
+    {
+      "path": "packages/react-meteor-data.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/react-meteor-data.js?hash=237ad487de34adc39d870279c7e049c7719519d6",
+      "sourceMap": "packages/react-meteor-data.js.map",
+      "sourceMapUrl": "/packages/237ad487de34adc39d870279c7e049c7719519d6.map",
+      "size": 36301,
+      "hash": "237ad487de34adc39d870279c7e049c7719519d6"
     },
     {
       "path": "packages/ddp-rate-limiter.js",
@@ -506,6 +517,17 @@
       "sourceMapUrl": "/packages/f43427e80c4a8a93daf5ed094c8141a0ee19c804.map",
       "size": 24121,
       "hash": "f43427e80c4a8a93daf5ed094c8141a0ee19c804"
+    },
+    {
+      "path": "packages/reactive-dict.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/reactive-dict.js?hash=8a78efb82b75a8822118656632a6dc7d4a185c62",
+      "sourceMap": "packages/reactive-dict.js.map",
+      "sourceMapUrl": "/packages/8a78efb82b75a8822118656632a6dc7d4a185c62.map",
+      "size": 38864,
+      "hash": "8a78efb82b75a8822118656632a6dc7d4a185c62"
     },
     {
       "path": "packages/session.js",
@@ -654,20 +676,20 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/packages/global-imports.js?hash=e7bf021535780b0529b4a012003f6c9155b63bed",
-      "size": 1190,
-      "hash": "e7bf021535780b0529b4a012003f6c9155b63bed"
+      "url": "/packages/global-imports.js?hash=11fae3fdbcc47fe0092d86f62d8f5810db9e4ca5",
+      "size": 1200,
+      "hash": "11fae3fdbcc47fe0092d86f62d8f5810db9e4ca5"
     },
     {
       "path": "app/app.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/app/app.js?hash=10685c5279607800786c7bc09ef67cc77872de17",
+      "url": "/app/app.js?hash=1524d2e4f1be20ef22bed2d388eecbc715930823",
       "sourceMap": "app/app.js.map",
-      "sourceMapUrl": "/app/10685c5279607800786c7bc09ef67cc77872de17.map",
-      "size": 41448,
-      "hash": "10685c5279607800786c7bc09ef67cc77872de17"
+      "sourceMapUrl": "/app/1524d2e4f1be20ef22bed2d388eecbc715930823.map",
+      "size": 58566,
+      "hash": "1524d2e4f1be20ef22bed2d388eecbc715930823"
     },
     {
       "path": "merged-stylesheets.css",
@@ -684,7 +706,7 @@
       "path": "head.html",
       "where": "internal",
       "type": "head",
-      "hash": "fe17f081d5483633e7ea337811e0c8668344e6fd"
+      "hash": "adc087ff28f81cf35bfe42c23ad1ffae048abc29"
     }
   ]
 }
