@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class Task extends Component {
+export default class TasklistItem extends Component {
   render() {
     return (
       <li>{this.props.task.text}</li>
@@ -8,6 +8,6 @@ export default class Task extends Component {
   }
 }
 
-Task.propTypes = {
+TasklistItem.propTypes = {
   task: PropTypes.object.isRequired,
 };

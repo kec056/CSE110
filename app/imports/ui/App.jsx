@@ -3,13 +3,13 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Tasks } from '../api/Tasks.js';
 
-import Task from './Task.jsx';
+import TasklistItem from './TasklistItem.jsx';
 
 // App component - represents the whole app
 class App extends Component {
   renderTasks() {
     return this.props.tasks.map(task =>
-      <Task key={task._id} task={task} />
+      <TasklistItem key={task._id} task={task} />
     );
   }
 
