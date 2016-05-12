@@ -5,6 +5,8 @@ import { Tasks } from '../api/Tasks.js';
 
 import TasklistItem from './TasklistItem.jsx';
 
+import { Link } from 'react-router';
+
 // App component - represents the whole app
 class App extends Component {
   renderTasks() {
@@ -22,6 +24,10 @@ class App extends Component {
 
         <ul>
           {this.renderTasks()}
+        </ul>
+
+        <ul>
+          <li><Link to="/new">Next page</Link></li>
         </ul>
       </div>
     );
