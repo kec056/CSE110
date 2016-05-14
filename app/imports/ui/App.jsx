@@ -1,45 +1,38 @@
-import React, { Component, PropTypes } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-
-import { Tasks } from '../api/Tasks.js';
-
-import TasklistItem from './TasklistItem.jsx';
-
+import React, { Component } from 'react';
+//import Menu from 'react-burger-menu';
+import '../api/hamburger.js';
 import { Link } from 'react-router';
 
-// App component - represents the whole app
-class App extends Component {
-  renderTasks() {
-    return this.props.tasks.map(task =>
-      <TasklistItem key={task._id} task={task} />
-    );
-  }
+import FaList from 'react-icons/lib/fa/list';
+import FaCalendarCheckO from 'react-icons/lib/fa/calendar-check-o';
+import FaFacebookOfficial from 'react-icons/lib/fa/facebook-official';
 
-  render() {
-    return (
-      <div className="container">
-        <header>
-          <h1>Tasks</h1>
-        </header>
+var Menu = require('react-burger-menu').slide;
 
-        <ul>
-          {this.renderTasks()}
-        </ul>
+export default class App extends Component {
+    render() {
+        return (
+            <div class="container">
+                <div class="bm-menu">
+                    <Menu class="bm-item-list">
+                        <Link id="tasks" to="/">
+                            <FaList />
+                            <span>Tasks</span>
+                        </Link>
+                        <Link id="calendar" to="/calendar">
+                            <FaCalendarCheckO />
+                            <span>Calendar</span>
+                        </Link>
+                        <Link id="social" to="#">
+                            <FaFacebookOfficial />
+                            <span>Social</span>
+                        </Link>
+                    </Menu>
+                </div>
 
-        <ul>
-          <li><Link to="/new">Next page</Link></li>
-        </ul>
-      </div>
-    );
-  }
+                {this.props.children}
+            </div>
+        );
+    }
+
 }
-
-App.propTypes = {
-  tasks: PropTypes.array.isRequired,
-};
-
-export default createContainer(() => {
-  return {
-    tasks: Tasks.find({}).fetch(),
-  };
-}, App);

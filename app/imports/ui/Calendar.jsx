@@ -12,11 +12,14 @@ export default React.createClass( {
 })
 */
 
-export default class Page extends Component {
+export default class Calendar extends Component {
     render() {
         return (
-            <div>
-                <h1>My new page</h1>
+            <div className="container">
+                <header>
+                    <h1>Calendar</h1>
+                </header>
+
                 <ul>
                     <li><Link to="/">Home</Link></li>
                 </ul>
