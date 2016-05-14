@@ -2,15 +2,6 @@ import React from 'react';
 import { Component, PropTypes } from 'react';
 
 import { Link } from 'react-router';
-/*
-export default React.createClass( {
-    render() {
-        return (
-            <div>My new page</div>
-        );
-    }
-})
-*/
 
 export default class Calendar extends Component {
     render() {
