@@ -7,17 +7,17 @@ import App from '../imports/ui/App.jsx';
 
 import { Router, Route, browserHistory } from 'react-router';
 import Calendar from '../imports/ui/Calendar.jsx';
-import Page from '../imports/ui/Page.jsx';
+import Page from '../imports/ui/Menu.jsx';
 
 Meteor.startup(() => {
   //render(<Tasklist />, document.getElementById('render-target'));
   render(
-      <Router history={browserHistory}>
-        <Route component={App}>
-            <Route path="/" component={Tasklist} />
-            <Route path="/calendar" component={Calendar} />
-        </Route>
-      </Router>,
-      document.getElementById('render-target')
+    <Router history={browserHistory}>
+      <Route component={App}>
+        <Route path="/" component={Tasklist} />
+        <Route path="/calendar" component={Calendar} />
+      </Route>
+    </Router>,
+    document.getElementById('render-target')
   );
 });

@@ -5,8 +5,6 @@ import { Tasks } from '../api/Tasks.js';
 
 import TasklistItem from './TasklistItem.jsx';
 
-import { Link } from 'react-router';
-
 // Tasklist component - represents the whole app
 export default class Tasklist extends Component {
   renderTasks() {
