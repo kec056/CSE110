@@ -7,7 +7,6 @@ import App from '../imports/ui/App.jsx';
 
 import { Router, Route, browserHistory } from 'react-router';
 import Calendar from '../imports/ui/Calendar.jsx';
-import Page from '../imports/ui/Menu.jsx';
 
 Meteor.startup(() => {
   //render(<Tasklist />, document.getElementById('render-target'));
