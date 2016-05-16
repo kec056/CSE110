@@ -1,39 +1,16 @@
-import React, { Component, PropTypes } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import React, { Component } from 'react';
 
-import { Tasks } from '../api/Tasks.js';
+import Menu from './Menu.jsx';
 
-import TasklistItem from './TasklistItem.jsx';
-
-// App component - represents the whole app
-class App extends Component {
-  renderTasks() {
-    return this.props.tasks.map(task =>
-      <TasklistItem key={task._id} task={task} />
-    );
-  }
-
+export default class App extends Component {
   render() {
     return (
-      <div className="container">
-        <header>
-          <h1>Tasks</h1>
-        </header>
+      <div class="container">
+        <Menu />
 
-        <ul>
-          {this.renderTasks()}
-        </ul>
+        {this.props.children}
+
       </div>
     );
   }
 }
-
-App.propTypes = {
-  tasks: PropTypes.array.isRequired,
-};
-
-export default createContainer(() => {
-  return {
-    tasks: Tasks.find({}).fetch(),
-  };
-}, App);
