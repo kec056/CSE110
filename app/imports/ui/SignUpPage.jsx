@@ -52,7 +52,7 @@ export default class SignUpPage extends Component {
 
     const content = (
       <div className="wrapper-auth">
-        <h1 className="title-auth">Sign Up.</h1>
+        <h1 className="title-auth">Sign Up</h1>
         <p className="subtitle-auth" >Signing up allows you sync tasks and events across devices</p>
         <form onSubmit={this.onSubmit}>
           <div className="list-errors">

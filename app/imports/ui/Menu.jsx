@@ -4,6 +4,9 @@ import { Link } from 'react-router';
 import FaList from 'react-icons/lib/fa/list';
 import FaCalendarCheckO from 'react-icons/lib/fa/calendar-check-o';
 import FaFacebookOfficial from 'react-icons/lib/fa/facebook-official';
+import FaSignOut from 'react-icons/lib/fa/sign-out';
+import FaSignIn from 'react-icons/lib/fa/sign-in';
+import FaChild from 'react-icons/lib/fa/child';
 
 let BurgerMenu = require('react-burger-menu').slide;
 
@@ -18,6 +21,7 @@ export default class Menu extends Component {
 
   renderLoggedIn() {
     const { user, logout } = this.props;
+    const email = user.emails[0].address;
 
     return (
       <div class="bm-menu">
@@ -30,13 +34,15 @@ export default class Menu extends Component {
             <FaCalendarCheckO />
             <span>Calendar</span>
           </Link>
-          <Link id="social" to="#">
+          <Link id="social" to="/social">
             <FaFacebookOfficial />
             <span>Social</span>
           </Link>
-          <Link id="logout" to="#" onClick={logout}>
+          <Link id="logout" to="/" onClick={logout}>
+            <FaSignOut />
             <span>Logout</span>
           </Link>
+          <span id="user-email">Signed in as:<br/>{email}</span>
         </BurgerMenu>
       </div>
     );
@@ -54,14 +60,16 @@ export default class Menu extends Component {
             <FaCalendarCheckO />
             <span>Calendar</span>
           </Link>
-          <Link id="social" to="#">
+          <Link id="social" to="/social">
             <FaFacebookOfficial />
             <span>Social</span>
           </Link>
-          <Link id="register" to="#">
+          <Link id="register" to="/signup">
+            <FaChild />
             <span>Register</span>
           </Link>
-          <Link id="login" to="#">
+          <Link id="login" to="/signin">
+            <FaSignIn />
             <span>Login</span>
           </Link>
         </BurgerMenu>

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
 
 import Menu from './Menu.jsx';
 
@@ -17,7 +18,7 @@ export default class App extends Component {
     } = this.props;
 
     return (
-      <div class="container">
+      <div id="app">
         <Menu user={currentUser} logout={this.logout}/>
 
         {this.props.children}
@@ -30,3 +31,9 @@ export default class App extends Component {
 App.propTypes = {
   currentUser: PropTypes.object,
 };
+
+export default createContainer(() => {
+  return {
+    currentUser: Meteor.user(),
+  };
+}, App);
