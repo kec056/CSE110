@@ -1,12 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import Menu from './Menu.jsx';
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  logout() {
+    Meteor.logout();
+  }
+
   render() {
+    const {
+      currentUser
+    } = this.props;
+
     return (
       <div class="container">
-        <Menu />
+        <Menu user={currentUser} logout={this.logout}/>
 
         {this.props.children}
 
@@ -14,3 +26,7 @@ export default class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  currentUser: PropTypes.object,
+};
