@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Authpage = ({ content, link }) => (
+const AuthPage = ({ content, link }) => (
   <div className="page auth">
     <div className="page-content">
       {content}
@@ -9,9 +9,9 @@ const Authpage = ({ content, link }) => (
   </div>
 );
 
-Authpage.propTypes = {
+AuthPage.propTypes = {
   content: React.PropTypes.element,
   link: React.PropTypes.element,
 };
 
-export default Authpage;
+export default AuthPage;

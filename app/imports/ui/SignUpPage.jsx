@@ -6,7 +6,8 @@ import { Accounts } from 'meteor/accounts-base';
 export default class SignUpPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {errors: {}};
+    this.state = { errors: {} };
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit(event) {
@@ -26,7 +27,7 @@ export default class SignUpPage extends Component {
       errors.confirmPass = 'Passwords do not match';
     }
 
-    this.setState({errors});
+    this.setState({ errors });
     if (Object.keys(errors).length) {
       return;
     }
@@ -51,8 +52,8 @@ export default class SignUpPage extends Component {
 
     const content = (
       <div className="wrapper-auth">
-        <h1 className="title-auth">Join.</h1>
-        <p className="subtitle-auth" >Joining allows you to make private lists</p>
+        <h1 className="title-auth">Sign Up.</h1>
+        <p className="subtitle-auth" >Signing up allows you sync tasks and events across devices</p>
         <form onSubmit={this.onSubmit}>
           <div className="list-errors">
             {errorMessages.map(msg => (
@@ -67,8 +68,8 @@ export default class SignUpPage extends Component {
             <input type="password" name="password" ref="password" placeholder="Password" />
             <span className="icon-lock" title="Password" />
           </div>
-          <div className={`input-symbol ${errorClass('confirm')}`}>
-            <input type="password" name="confirm" ref="confirm" placeholder="Confirm Password" />
+          <div className={`input-symbol ${errorClass('confirmPass')}`}>
+            <input type="password" name="confirmPass" ref="confirmPass" placeholder="Confirm Password" />
             <span className="icon-lock" title="Confirm Password" />
           </div>
           <button type="submit" className="btn-primary">Join Now</button>
