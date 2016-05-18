@@ -5,6 +5,7 @@ html {
 }
 
 body {
+  font-family: sans-serif;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -28,8 +29,28 @@ h1 {
   justify-content: center;
   align-content: center;
   flex-direction: column;
-  background-color: red;
+  color: white;
+  background: #3E50B4;
   height: 50px;
+}
+
+.new-task input{
+  box-sizing: border-box;
+  padding: 10px 0;
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding-right: 80px;
+  font-size: 1em;
+}
+
+.delete {
+	float: right;
+	font-weight: bold;
+	background: none;
+	font-size: 1em;
+	border: none;
+	position: relative;
 }
 
 header {
@@ -38,8 +59,9 @@ header {
 }
 
 ul {
-  display: inline-block;
-  margin: auto;
+  margin: 0;
+  padding: 0;
+  background: white;
 }
 
 .container {
@@ -47,4 +69,8 @@ ul {
   margin: 0 auto;
   background-color: #ffffff;
   height: 100%;
+}
+
+.title{
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
