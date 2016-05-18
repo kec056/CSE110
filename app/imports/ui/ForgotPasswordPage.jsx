@@ -1,9 +1,10 @@
-import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
-import AuthPage from './AuthPage.jsx';
 import { Link } from 'react-router';
+import { Accounts } from 'meteor/accounts-base';
 
-export default class SignInPage extends Component {
+import AuthPage from './AuthPage.jsx';
+
+export default class ForgotPasswordPage extends Component {
   constructor(props) {
     super(props);
     this.state = { errors: {} };
@@ -13,14 +14,10 @@ export default class SignInPage extends Component {
   onSubmit(event) {
     event.preventDefault();
     const email = this.refs.email.value;
-    const password = this.refs.password.value;
     const errors = {};
 
     if (!email) {
       errors.email = 'Email required';
-    }
-    if (!password) {
-      errors.password = 'Password required';
     }
 
     this.setState({ errors });
@@ -28,19 +25,19 @@ export default class SignInPage extends Component {
       return;
     }
 
-    Meteor.loginWithPassword(email, password, err => {
+    Accounts.forgotPassword({ email: email }, err => {
       if (err) {
         this.setState({
           errors: { none: err.reason },
         });
-        this.context.router.push('/signin');
+        this.context.router.push('/forgotpassword');
       }
       else {
         this.context.router.push('/');
       }
     });
   }
-
+  
   render() {
     const { errors } = this.state;
     const errorMessages = Object.keys(errors).map(key => errors[key]);
@@ -48,8 +45,8 @@ export default class SignInPage extends Component {
 
     const content = (
       <div className="wrapper-auth">
-        <h1 className="title-auth">Sign In</h1>
-        <p className="subtitle-auth">Signing in allows you to synchronize your lists across devices</p>
+        <h1 className="title-auth">Forgot Password</h1>
+        <p className="subtitle-auth">Enter email used for your account</p>
         <form onSubmit={this.onSubmit}>
           <div className="list-errors">
             {errorMessages.map(msg => (
@@ -60,24 +57,17 @@ export default class SignInPage extends Component {
             <input type="email" name="email" ref="email" placeholder="Your Email" />
             <span className="icon-email" title="Your Email" />
           </div>
-          <div className={`input-symbol ${errorClass('password')}`}>
-            <input type="password" name="password" ref="password" placeholder="Password" />
-            <span className="icon-lock" title="Password" />
-          </div>
-          <button type="submit" className="btn-primary">Sign in</button>
-          <Link id="forgotpassword" to="/forgotpassword">
-            <span><br />Forgot Password?</span>
-          </Link>
+          <button type="submit" className="btn-primary">Continue</button>
         </form>
       </div>
     );
-
-    const link = <Link to="/signup" className="link-sign-up-alt">Need an account? Sign Up.</Link>;
-
+    
+    const link = <Link to="/signin" className="link-sign-in-alt">Go back to login page.</Link>;
+    
     return <AuthPage content={content} link={link} />;
   }
 }
 
-SignInPage.contextTypes = {
+ForgotPasswordPage.contextType = {
   router: React.PropTypes.object,
 };

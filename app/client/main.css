@@ -72,7 +72,7 @@ form button {
   margin: 10px auto;
 }
 
-.link-auth-alt, .link-sign-up-alt {
+.link-auth-alt, .link-sign-up-alt, .link-sign-in-alt {
   display: block;
   margin: 0.7em auto;
   text-align: center;
