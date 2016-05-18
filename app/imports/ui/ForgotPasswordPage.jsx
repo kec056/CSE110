@@ -56,7 +56,7 @@ export default class ForgotPasswordPage extends Component {
             <input type="email" name="email" ref="email" placeholder="Your Email" />
             <span className="icon-email" title="Your Email" />
           </div>
-          <button type="submit" className="btn-primary">Continue</button>
+          <button type="submit" className="btn-primary">Send Recovery Email</button>
         </form>
       </div>
     );
