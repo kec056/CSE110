@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Accounts } from 'meteor/accounts-base';
 
 import AuthPage from './AuthPage.jsx';
@@ -35,9 +35,9 @@ export default class ResetPasswordPage extends Component {
         this.setState({
           errors: { none: err.reason },
         });
-        this.context.router.push('/reset-password/:token');
+        browserHistory.push('/reset-password/:token');
       } else {
-        this.context.router.push('/');
+        browserHistory.push('/');
       }
     });
   }
@@ -78,5 +78,4 @@ export default class ResetPasswordPage extends Component {
 
 ResetPasswordPage.propTypes = {
   params: React.PropTypes.object,
-  router: React.PropTypes.object,
 };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AuthPage from './AuthPage.jsx';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Accounts } from 'meteor/accounts-base';
 
 export default class SignUpPage extends Component {
@@ -40,8 +40,10 @@ export default class SignUpPage extends Component {
         this.setState({
           errors: { none: err.reason },
         });
+        browserHistory.push('/signup');
+      } else {
+        browserHistory.push('/');
       }
-      this.context.router.push('/');
     });
   }
 
@@ -82,7 +84,3 @@ export default class SignUpPage extends Component {
     return <AuthPage content={content} link={link} />;
   }
 }
-
-SignUpPage.contextTypes = {
-  router: React.PropTypes.object,
-};

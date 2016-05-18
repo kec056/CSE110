@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import AuthPage from './AuthPage.jsx';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
 export default class SignInPage extends Component {
   constructor(props) {
@@ -33,9 +33,9 @@ export default class SignInPage extends Component {
         this.setState({
           errors: { none: err.reason },
         });
-        this.context.router.push('/signin');
+        browserHistory.push('/signin');
       } else {
-        this.context.router.push('/');
+        browserHistory.push('/');
       }
     });
   }
@@ -76,7 +76,3 @@ export default class SignInPage extends Component {
     return <AuthPage content={content} link={link} />;
   }
 }
-
-SignInPage.contextTypes = {
-  router: React.PropTypes.object,
-};

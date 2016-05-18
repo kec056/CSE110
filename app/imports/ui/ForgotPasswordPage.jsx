@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Accounts } from 'meteor/accounts-base';
 
 import AuthPage from './AuthPage.jsx';
@@ -30,9 +30,9 @@ export default class ForgotPasswordPage extends Component {
         this.setState({
           errors: { none: err.reason },
         });
-        this.context.router.push('/forgotpassword');
+        browserHistory.push('/forgotpassword');
       } else {
-        this.context.router.push('/');
+        browserHistory.push('/');
       }
     });
   }
@@ -66,7 +66,3 @@ export default class ForgotPasswordPage extends Component {
     return <AuthPage content={content} link={link} />;
   }
 }
-
-ForgotPasswordPage.contextType = {
-  router: React.PropTypes.object,
-};
