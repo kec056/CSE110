@@ -38,11 +38,11 @@ export default class Menu extends Component {
             <FaFacebookOfficial />
             <span>Social</span>
           </Link>
+          <span id="user-email">Signed in as:<br/>{email}</span>
           <Link id="logout" to="/" onClick={logout}>
             <FaSignOut />
             <span>Logout</span>
           </Link>
-          <span id="user-email">Signed in as:<br/>{email}</span>
         </BurgerMenu>
       </div>
     );
