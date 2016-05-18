@@ -31,8 +31,7 @@ export default class ForgotPasswordPage extends Component {
           errors: { none: err.reason },
         });
         this.context.router.push('/forgotpassword');
-      }
-      else {
+      } else {
         this.context.router.push('/');
       }
     });
