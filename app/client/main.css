@@ -73,11 +73,15 @@ form button {
 }
 
 .link-auth-alt, .link-sign-up-alt, .link-sign-in-alt {
-  display: block;
+  display: inline-block;
   margin: 0.7em auto;
   text-align: center;
 }
 
 .subtitle-auth {
+  text-align: center;
+}
+
+.page-content {
   text-align: center;
 }
