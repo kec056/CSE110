@@ -71,9 +71,7 @@ export default class Tasklist extends Component {
                     placeholder="Enter a new task."
                   />
                 </form> 
-                  <h2 style={styles.headline}>
-                    {this.renderTasks()}
-                  </h2>
+                {this.renderTasks()}
               </div>
             </Tab>
               <Tab label="Completed">
