@@ -1,11 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import ReactDOM from 'react-dom';
 
 import Menu from './Menu.jsx';
+import Nav from './Drawer.jsx';
+import {cyan500} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    textColor: cyan500,
+  },
+  appBar: {
+    height: 50,
+  },
+});
 
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      pageTitle: ""
+    };
   }
 
   logout() {
@@ -19,7 +36,9 @@ export default class App extends Component {
 
     return (
       <div id="app">
-        <Menu user={currentUser} logout={this.logout}/>
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <Nav title={this.state.pageTitle} />
+        </MuiThemeProvider>
 
         {this.props.children}
 
