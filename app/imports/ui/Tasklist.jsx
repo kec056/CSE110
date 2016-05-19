@@ -5,6 +5,7 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import Divider from 'material-ui/Divider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { createContainer } from 'meteor/react-meteor-data';
@@ -50,7 +51,7 @@ export default class Tasklist extends React.Component {
     
   renderTasks() {
     return this.props.tasks.map(task =>
-      <TasklistItem key={task._id} task={task} />
+      	<TasklistItem key={task._id} task={task} />
     );
   }
 
