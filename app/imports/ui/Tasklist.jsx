@@ -1,10 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+//material ui imports lol
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import { createContainer } from 'meteor/react-meteor-data';
-
 import { Tasks } from '../api/Tasks.js';
-
 import TasklistItem from './TasklistItem.jsx';
+
+//required for interacting/clicing on tabs
+injectTapEventPlugin();
+
+//dark theme for ui?
+const darkMuiTheme = getMuiTheme(darkBaseTheme);
+//font style for tabs
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight:400,
+  },
+}
 
 // Tasklist component - represents the whole app
 export default class Tasklist extends Component {
@@ -32,23 +52,38 @@ export default class Tasklist extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="title">
-          <header>
-            <h1>Tasks</h1>
-          </header>
+      <MuiThemeProvider muiTheme={darkMuiTheme}>
+        <div className="container">
+
+          <div className="title">
+            <header>
+              <h1>Tasks</h1>
+            </header>
+          </div>
+          
+          <Tabs>
+            <Tab label="Planned">
+              <div>
+                <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
+                  <input
+                    type="text"
+                    ref="textInput"
+                    placeholder="Enter a new task."
+                  />
+                </form> 
+                  <h2 style={styles.headline}>
+                    {this.renderTasks()}
+                  </h2>
+              </div>
+            </Tab>
+              <Tab label="Completed">
+                <div>
+                </div>
+              </Tab>
+          </Tabs>
+
         </div>
-        <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-          <input
-              type="text"
-              ref="textInput"
-              placeholder="Enter a new task."
-          />
-        </form> 
-        <ul>
-          {this.renderTasks()}
-        </ul>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
