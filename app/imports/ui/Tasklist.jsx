@@ -27,23 +27,27 @@ const styles = {
 }
 
 // Tasklist component - represents the whole app
-export default class Tasklist extends Component {
+export default class Tasklist extends React.Component {
+  constructor(props){
+    super(props);
+    this.state ={
+        mode: "left",
+    }
+  }
+  //submit task
   handleSubmit(event) {
     event.preventDefault();
-    
-    //find the text field using react ref
     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 
-    //if not entering an empty task, add to Task collections
     if (text != ''){
       Tasks.insert({
         text,
         createdAt: new Date(),
       });
     }
-    //clears form
     ReactDOM.findDOMNode(this.refs.textInput).value = '';
   }
+    
   renderTasks() {
     return this.props.tasks.map(task =>
       <TasklistItem key={task._id} task={task} />
@@ -61,24 +65,31 @@ export default class Tasklist extends Component {
             </header>
           </div>
           
-          <Tabs>
-            <Tab label="Planned">
-              <div>
-                <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-                  <input
-                    type="text"
-                    ref="textInput"
-                    placeholder="Enter a new task."
-                  />
-                </form> 
-                {this.renderTasks()}
-              </div>
-            </Tab>
-              <Tab label="Completed">
-                <div>
-                </div>
+          <div className="tabs">
+            <Tabs
+              value={this.state.mode}
+              onChange={(mode)=>{this.setState({ mode: mode,});}
+              }
+            >
+              <Tab label="Planned" value="left" >
               </Tab>
-          </Tabs>
+              <Tab label="Completed" value="right">
+              </Tab>
+            </Tabs>
+          </div>
+
+          { (this.state.mode == "left") ? 
+          <div className="tasklistbody">
+            <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
+              <input
+                type="text"
+                ref="textInput"
+                placeholder="Enter a new task."
+              />
+            </form> 
+            {this.renderTasks()}
+          </div> : ''
+          }
 
         </div>
       </MuiThemeProvider>
