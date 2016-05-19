@@ -4,6 +4,10 @@ html {
   background-color: #ffffff;
 }
 
+#app {
+  height: 100%;
+}
+
 body {
   position: absolute;
   top: 0;
@@ -15,7 +19,7 @@ body {
   margin: 0 auto;
 
   height: 100%;
-  background-color: #2f9cf3;
+  background: linear-gradient(#04bedc, #5ddca6);
 }
 
 #render-target {
@@ -28,8 +32,10 @@ h1 {
   justify-content: center;
   align-content: center;
   flex-direction: column;
-  background-color: red;
+  /*background-color: red;*/
+  background-color: #04bedc;
   height: 50px;
+  text-align: center;
 }
 
 header {
@@ -42,9 +48,40 @@ ul {
   margin: auto;
 }
 
-.container {
+.container, .page-auth {
   max-width: 600px;
   margin: 0 auto;
   background-color: #ffffff;
   height: 100%;
+}
+
+form {
+  text-align: center;
+}
+
+form div input {
+  display: block;
+  width: 80%;
+  margin: 10px auto;
+  padding: 0.7em 0.7em;
+  font-size: 16px;
+}
+
+form button {
+  font-size: 16px;
+  margin: 10px auto;
+}
+
+.link-auth-alt, .link-sign-up-alt, .link-sign-in-alt {
+  display: inline-block;
+  margin: 0.7em auto;
+  text-align: center;
+}
+
+.subtitle-auth {
+  text-align: center;
+}
+
+.page-content {
+  text-align: center;
 }
