@@ -11,6 +11,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/Tasks.js';
 import TasklistItem from './TasklistItem.jsx';
+import AddTaskButton from './AddTaskButton.jsx';
 
 //required for interacting/clicing on tabs
 injectTapEventPlugin();
@@ -55,30 +56,36 @@ export default class Tasklist extends React.Component {
     );
   }
 
-  render() {
-    return (
-      <MuiThemeProvider muiTheme={darkMuiTheme}>
-        <div className="container">
+  renderTitle(){
+    return(
+      <div className="title">
+        <header>
+          <h1>Tasks</h1>
+        </header>
+      </div>
+    )
+  }
 
-          <div className="title">
-            <header>
-              <h1>Tasks</h1>
-            </header>
-          </div>
-          
-          <div className="tabs">
-            <Tabs
-              value={this.state.mode}
-              onChange={(mode)=>{this.setState({ mode: mode,});}
-              }
-            >
-              <Tab label="Planned" value="left" >
-              </Tab>
-              <Tab label="Completed" value="right">
-              </Tab>
-            </Tabs>
-          </div>
+  renderTabs(){
+    return(
+      <div className="tabs">
+        <Tabs
+          value={this.state.mode}
+          onChange={(mode)=>{this.setState({ mode: mode,});}
+          }
+        >
+          <Tab label="Planned" value="left" >
+          </Tab>
+          <Tab label="Completed" value="right">
+          </Tab>
+        </Tabs>
+      </div>
+    )
+  }
 
+  renderTasklistBody(){
+    return(
+      <div>
           { (this.state.mode == "left") ? 
           <div className="tasklistbody">
             <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
@@ -91,6 +98,21 @@ export default class Tasklist extends React.Component {
             {this.renderTasks()}
           </div> : ''
           }
+      </div> 
+    )
+  }
+          /*
+          */
+  render() {
+    return (
+      <MuiThemeProvider muiTheme={darkMuiTheme}>
+        <div className="container">
+          {this.renderTabs()}         
+          {this.renderTitle()}
+          <div className="addButton">
+            <AddTaskButton />
+          </div>
+          {this.renderTasklistBody()}
 
         </div>
       </MuiThemeProvider>
