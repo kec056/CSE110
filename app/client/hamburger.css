@@ -62,7 +62,7 @@
   bottom: 80px;
   font-family: 'Raleway', Arial, sans-serif;
 }
-
+/*
 #login, #logout {
   position: absolute;
   bottom: 30px;
@@ -72,6 +72,7 @@
   position: absolute;
   bottom: 80px;
 }
+*/
 
 .bm-item-list a:hover {
   color: #cf0014;
