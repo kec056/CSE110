@@ -44,7 +44,6 @@ export default class ForgotPasswordPage extends Component {
 
     const content = (
       <div className="wrapper-auth">
-        <h1 className="title-auth">Forgot Password</h1>
         <p className="subtitle-auth">Enter email used for your account</p>
         <form onSubmit={this.onSubmit}>
           <div className="list-errors">

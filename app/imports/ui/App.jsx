@@ -3,7 +3,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import ReactDOM from 'react-dom';
 
 import Menu from './Menu.jsx';
-import Nav from './Drawer.jsx';
 import {cyan500} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -20,13 +19,6 @@ const muiTheme = getMuiTheme({
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      pageTitle: ""
-    };
-  }
-
-  logout() {
-    Meteor.logout();
   }
 
   render() {
@@ -37,7 +29,7 @@ export default class App extends Component {
     return (
       <div id="app">
         <MuiThemeProvider muiTheme={muiTheme}>
-          <Nav title={this.state.pageTitle} />
+          <Menu path={this.props.location.pathname} user={currentUser} />
         </MuiThemeProvider>
 
         {this.props.children}

@@ -4,6 +4,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/Tasks.js';
 
 import TasklistItem from './TasklistItem.jsx';
+import FontIcon from 'material-ui/FontIcon';
+
 
 // Tasklist component - represents the whole app
 export default class Tasklist extends Component {
@@ -16,9 +18,6 @@ export default class Tasklist extends Component {
   render() {
     return (
       <div className="container">
-        <header>
-          <h1>Tasks</h1>
-        </header>
 
         <ul>
           {this.renderTasks()}

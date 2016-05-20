@@ -47,7 +47,6 @@ export default class SignInPage extends Component {
 
     const content = (
       <div className="wrapper-auth">
-        <h1 className="title-auth">Sign In</h1>
         <p className="subtitle-auth">Signing in allows you to synchronize your lists across devices</p>
         <form onSubmit={this.onSubmit}>
           <div className="list-errors">
