@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 //material ui imports lol
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -37,18 +36,6 @@ export default class Tasklist extends React.Component {
     }
   }
   //submit task
-  handleSubmit(event) {
-    event.preventDefault();
-    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-
-    if (text != ''){
-      Tasks.insert({
-        text,
-        createdAt: new Date(),
-      });
-    }
-    ReactDOM.findDOMNode(this.refs.textInput).value = '';
-  }
     
   renderTasks() {
     return this.props.tasks.map(task =>
@@ -88,21 +75,12 @@ export default class Tasklist extends React.Component {
       <div>
           { (this.state.mode == "left") ? 
           <div className="tasklistbody">
-            <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-              <input
-                type="text"
-                ref="textInput"
-                placeholder="Enter a new task."
-              />
-            </form> 
             {this.renderTasks()}
           </div> : ''
           }
       </div> 
     )
   }
-          /*
-          */
   render() {
     return (
       <MuiThemeProvider muiTheme={darkMuiTheme}>
