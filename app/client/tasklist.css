@@ -1,0 +1,38 @@
+.title{
+  position: fixed;
+  width:100%;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.tabs{
+  top: 50px;
+  position: fixed;
+  width:100%;
+}
+.tasklistbody{
+  padding-top: 100px;
+  width:100%;
+  height:100%;
+}
+
+.new-task input{
+  box-sizing: border-box;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding-right: 80px;
+  font-size: 1em;
+}
+
+.delete {
+	float: right;
+	font-weight: bold;
+	background: none;
+	font-size: 1em;
+	border: none;
+	position: relative;
+}
+.addButton {
+	position: fixed;
+	right: 0;
+}

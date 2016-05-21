@@ -9,6 +9,7 @@ html {
 }
 
 body {
+  font-family: sans-serif;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -28,6 +29,7 @@ body {
 
 h1 {
   margin: 0 auto;
+  color: white;
   display: flex;
   justify-content: center;
   align-content: center;
@@ -37,6 +39,9 @@ h1 {
   height: 50px;
   text-align: center;
 }
+li {
+	list-style-type: none;
+}
 
 header {
   display: block;
@@ -44,12 +49,13 @@ header {
 }
 
 ul {
-  display: inline-block;
-  margin: auto;
+  margin: 0;
+  padding: 0;
+  background: white;
 }
 
 .container, .page-auth {
-  max-width: 600px;
+  width: 100%;
   margin: 0 auto;
   background-color: #ffffff;
   height: 100%;
@@ -85,3 +91,4 @@ form button {
 .page-content {
   text-align: center;
 }
+

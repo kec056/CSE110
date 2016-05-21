@@ -2,14 +2,14 @@
 .bm-burger-button {
   position: fixed;
   width: 30px;
-  height: 30px;
+  height: 23px;
   left: 20px;
-  top: 10px;
+  top: 13px;
 }
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #373a47;
+  background: white;
 }
 
 /* Position and sizing of clickable cross button */
