@@ -39,11 +39,13 @@ export default class AddTaskButton extends React.Component {
     const text = this.refs.textFieldValue.getValue();
     const time = this.state.timeMenu;
     const priority = this.state.priorityMenu;
+	const checked = false;
 
     if (text != ''){
       Tasks.insert({
         text,
         time,
+		checked,
         priority,
         createdAt: new Date(),
       });

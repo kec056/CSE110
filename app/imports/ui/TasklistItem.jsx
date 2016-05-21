@@ -10,27 +10,22 @@ import {grey400} from 'material-ui/styles/colors';
 
 import { Tasks } from '../api/Tasks.js';
 
-//define right icon button
-const iconButtonElement = (
-	<IconButton touch={true}>
-		<MoreVertIcon color={grey400} />
-	</IconButton>
-);
 
 // define right icon menu
 const rightIconMenu = (
 	<IconMenu 
-		iconButtonElement={iconButtonElement}>
-
-		// add redirect to edit screen
-		<MenuItem >Edit </MenuItem>
-		// add popup to confirm deletion
-		<MenuItem >Delete</MenuItem>
+		iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+	>
+	  // add redirect to edit screen
+	  <MenuItem primaryText="Edit" />
+	  // add popup to confirm deletion
+	  <MenuItem primaryText="Delete" />
 	</IconMenu>
 );
 
 export default class TasklistItem extends Component {
-  toggleChecked(){
+  
+ toggleChecked(){
     Tasks.update(this.props.task._id, {
       $set: { checked: !this.props.task.checked },
     });
@@ -42,16 +37,25 @@ export default class TasklistItem extends Component {
 
   render() {
     const taskClassName = this.props.task.checked ? 'checked' : '';
+	const iconButtonElement = (
+	<IconButton 
+	  touch={true}
+	  onFocus={this.deleteThisTask.bind(this)}
+	>
+		<MoreVertIcon color={grey400} />
+	</IconButton>
+ 	);
+
     return (
 	  <ListItem 
 	  	secondaryText={this.props.task.text}
 		leftCheckbox={
 			<Checkbox 
-				onCheck={this.props.task.checked}
+				checked={this.props.task.checked}
+				onCheck={this.toggleChecked.bind(this)}
 				iconStyle={{ fill: '#00BCD4' }}
 			/>}
-		rightIconButton={rightIconMenu}
-		
+		rightIconButton={iconButtonElement}	
 		// set "style" field for priority?
 
 		/*
