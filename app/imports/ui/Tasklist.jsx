@@ -72,7 +72,7 @@ export default class Tasklist extends React.Component {
 
   renderTasklistBody(){
     return(
-      <div>
+      <div className="text">
           { (this.state.mode == "left") ? 
           <div className="tasklistbody">
             {this.renderTasks()}
@@ -85,12 +85,14 @@ export default class Tasklist extends React.Component {
     return (
       <MuiThemeProvider muiTheme={darkMuiTheme}>
         <div className="container">
+          <MuiThemeProvider muiTheme={getMuiTheme()}>
+            {this.renderTasklistBody()}
+          </MuiThemeProvider>
           {this.renderTabs()}         
           {this.renderTitle()}
           <div className="addButton">
             <AddTaskButton />
           </div>
-          {this.renderTasklistBody()}
 
         </div>
       </MuiThemeProvider>
@@ -104,6 +106,6 @@ Tasklist.propTypes = {
 
 export default createContainer(() => {
   return {
-    tasks: Tasks.find({}, {sort: {createdAt: -1}}).fetch(),
+    tasks: Tasks.find({}, {sort: {time: 1, priority: -1, createdAt: 1}}).fetch(),
   };
 }, Tasklist);

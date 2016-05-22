@@ -5,25 +5,30 @@ import Checkbox from 'material-ui/Checkbox';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
+import ChevronRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import {grey400} from 'material-ui/styles/colors';
+import Paper from 'material-ui/Paper';
 
 import { Tasks } from '../api/Tasks.js';
 
 
 // define right icon menu
-const rightIconMenu = (
-	<IconMenu 
-		iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-	>
-	  // add redirect to edit screen
-	  <MenuItem primaryText="Edit" />
-	  // add popup to confirm deletion
-	  <MenuItem primaryText="Delete" />
-	</IconMenu>
+const iconButtonElement = (
+<IconButton 
+    touch={true}
+>
+    <MoreVertIcon color={grey400} />
+</IconButton>
 );
 
 export default class TasklistItem extends Component {
+ constructor(props){
+    super(props);
+    this.state ={
+      slideIndex: 0,
+    };
+ }
   
  toggleChecked(){
     Tasks.update(this.props.task._id, {
@@ -37,42 +42,46 @@ export default class TasklistItem extends Component {
 
   render() {
     const taskClassName = this.props.task.checked ? 'checked' : '';
-	const iconButtonElement = (
-	<IconButton 
-	  touch={true}
-	  onFocus={this.deleteThisTask.bind(this)}
-	>
-		<MoreVertIcon color={grey400} />
-	</IconButton>
- 	);
+    const rightIconMenu = (
+      <IconMenu 
+          iconButtonElement={iconButtonElement}
+      >
+      <MenuItem primaryText="Edit" />
+      <MenuItem 
+        primaryText="Delete" 
+        onTouchTap={
+            this.deleteThisTask.bind(this)
+        }
+      >
+      </MenuItem>
+      </IconMenu>
+    );
+
+    color = { fill: '#BDBDBD' };
+    if(this.props.task.time == 2){
+        color =  { fill: '#FDD835' };
+    }
+    else if( this.props.task.time == 3){
+        color =  { fill: '#00BCD4' };
+    }
+    else if( this.props.task.time == 4){
+        color =  { fill: '#512DA8' };
+    }
 
     return (
-	  <ListItem 
-	  	secondaryText={this.props.task.text}
-		leftCheckbox={
-			<Checkbox 
-				checked={this.props.task.checked}
-				onCheck={this.toggleChecked.bind(this)}
-				iconStyle={{ fill: '#00BCD4' }}
-			/>}
-		rightIconButton={iconButtonElement}	
-		// set "style" field for priority?
-
-		/*
-      <li className={taskClassName}>
-        <button className="delete" onClick={this.deleteThisTask.bind(this)}>
-          &times;
-        </button>
-        <input
-          type="checkbox"
-          readOnly
-          checked={this.props.task.checked}
-          onClick={this.toggleChecked.bind(this)}
-        />
-        <span className="text">{this.props.task.text}</span>
-      </li>
-	  	*/
-	  />
+      <Paper>  
+        <ListItem 
+          primaryText={<p className="taskItem">{this.props.task.text}</p>}
+          leftIcon={
+            <Checkbox 
+              checked={this.props.task.checked}
+              onCheck={this.toggleChecked.bind(this)}
+              iconStyle={color}
+        />}
+          rightIconButton={rightIconMenu}   
+        >
+        </ListItem>
+      </Paper>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import IconButton from 'material-ui/IconButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
@@ -39,17 +40,17 @@ export default class AddTaskButton extends React.Component {
     const text = this.refs.textFieldValue.getValue();
     const time = this.state.timeMenu;
     const priority = this.state.priorityMenu;
-	const checked = false;
+	  const checked = false;
 
     if (text != ''){
+      this.setState({newTaskPrompt:false});
       Tasks.insert({
         text,
         time,
-		checked,
+	    	checked,
         priority,
         createdAt: new Date(),
       });
-      this.setState({newTaskPrompt:false});
     }
   }
 
@@ -113,6 +114,13 @@ export default class AddTaskButton extends React.Component {
           hintText="Title"
           fullWidth={true}
           ref="textFieldValue"
+          onKeyDown={
+            (e)=>{
+              if(e.key == "Enter"){
+                this.handleSubmit(this);
+              }
+            }
+          }
         />
         <SelectField
           value={this.state.timeMenu}
@@ -124,7 +132,6 @@ export default class AddTaskButton extends React.Component {
           <MenuItem value={2} primaryText="Morning" />
           <MenuItem value={3} primaryText="Afternoon"/>
           <MenuItem value={4} primaryText="Evening" />
-          <MenuItem value={5} primaryText="Night" />
         </SelectField>
 
         <SelectField
