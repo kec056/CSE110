@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "material-ui": "^0.15.0",
+    "cronofy": "^1.1.7",
     "meteor-node-stubs": "~0.2.0",
     "node": "0.0.0",
     "react": "^15.0.2",
