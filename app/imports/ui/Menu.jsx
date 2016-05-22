@@ -50,6 +50,9 @@ export default class Menu extends Component {
       case "/social":
         this.title = "Social";
         break;
+      case "/settings":
+        this.title = "Settings";
+        break;
       case "/signin":
         this.title = "Sign In";
         break;
@@ -98,6 +101,15 @@ export default class Menu extends Component {
           >
             Social
           </MenuItem>
+
+          <MenuItem
+            linkButton
+            containerElement={<Link id="settings" to="/settings" />}
+            onTouchTap={this.handleClose.bind(this)}
+          >
+            Settings
+          </MenuItem>
+
           { !user ?
             <MenuItem
               linkButton
