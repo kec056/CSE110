@@ -49,7 +49,6 @@ export default class ResetPasswordPage extends Component {
 
     const content = (
       <div className="wrapper-auth">
-        <h1 className="title-auth">Reset Password</h1>
         <p className="subtitle-auth" >Enter and confirm new password</p>
         <form onSubmit={this.onSubmit}>
           <div className="list-errors">

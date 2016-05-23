@@ -36,7 +36,7 @@ export default class Tasklist extends React.Component {
     }
   }
   //submit task
-    
+
   renderTasks() {
     return this.props.tasks.map(task =>
       	<TasklistItem key={task._id} task={task} />
@@ -73,12 +73,12 @@ export default class Tasklist extends React.Component {
   renderTasklistBody(){
     return(
       <div className="text">
-          { (this.state.mode == "left") ? 
+          { (this.state.mode == "left") ?
           <div className="tasklistbody">
             {this.renderTasks()}
           </div> : ''
           }
-      </div> 
+      </div>
     )
   }
   render() {
@@ -88,7 +88,7 @@ export default class Tasklist extends React.Component {
           <MuiThemeProvider muiTheme={getMuiTheme()}>
             {this.renderTasklistBody()}
           </MuiThemeProvider>
-          {this.renderTabs()}         
+          {this.renderTabs()}
           {this.renderTitle()}
           <div className="addButton">
             <AddTaskButton />
