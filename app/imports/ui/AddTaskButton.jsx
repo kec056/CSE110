@@ -12,8 +12,9 @@ import MenuItem from 'material-ui/MenuItem';
 import { Tasks } from '../api/Tasks.js';
 const styles = {
   icon:{
-    width:37,
+    width: 37,
     height: 37,
+    fill: 'white'
   },
   frame:{
     width: 51,

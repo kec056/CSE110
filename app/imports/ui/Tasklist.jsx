@@ -13,7 +13,6 @@ import TasklistItem from './TasklistItem.jsx';
 import AddTaskButton from './AddTaskButton.jsx';
 
 //required for interacting/clicing on tabs
-injectTapEventPlugin();
 
 //dark theme for ui?
 const darkMuiTheme = getMuiTheme(darkBaseTheme);
@@ -89,10 +88,6 @@ export default class Tasklist extends React.Component {
             {this.renderTasklistBody()}
           </MuiThemeProvider>
           {this.renderTabs()}
-          {this.renderTitle()}
-          <div className="addButton">
-            <AddTaskButton />
-          </div>
 
         </div>
       </MuiThemeProvider>
