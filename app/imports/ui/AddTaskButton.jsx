@@ -12,13 +12,13 @@ import MenuItem from 'material-ui/MenuItem';
 import { Tasks } from '../api/Tasks.js';
 const styles = {
   icon:{
-    width: 37,
-    height: 37,
+    width: 27,
+    height: 27,
     fill: 'white'
   },
   frame:{
-    width: 51,
-    height: 51,
+    width: 49,
+    height: 49,
     padding: 0,
   },
   dropMenu:{
@@ -41,14 +41,14 @@ export default class AddTaskButton extends React.Component {
     const text = this.refs.textFieldValue.getValue();
     const time = this.state.timeMenu;
     const priority = this.state.priorityMenu;
-	  const checked = false;
+	const checked = false;
 
     if (text != ''){
       this.setState({newTaskPrompt:false});
       Tasks.insert({
         text,
         time,
-	    	checked,
+	    checked,
         priority,
         createdAt: new Date(),
       });
