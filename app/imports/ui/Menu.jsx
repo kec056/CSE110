@@ -5,6 +5,18 @@ import AppBar from 'material-ui/AppBar';
 
 import { Link } from 'react-router';
 
+import {List, ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider'
+import Avatar from 'material-ui/Avatar';
+import ActionDone from 'material-ui/svg-icons/action/done';
+import DateRange from 'material-ui/svg-icons/action/date-range';
+import SocialPeople from 'material-ui/svg-icons/social/people';
+import ActionHelp from 'material-ui/svg-icons/action/help';
+import ActionFace from 'material-ui/svg-icons/action/face';
+import PersonAdd from 'material-ui/svg-icons/social/person-add';
+import ActionInput from 'material-ui/svg-icons/action/input';
+import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+
 export default class Menu extends Component {
 
   constructor(props) {
@@ -65,6 +77,127 @@ export default class Menu extends Component {
         break;
     }
 
+    return (
+      <div>
+        <AppBar
+          title={this.title}
+          onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
+          iconClassNameRight="muidocs-icon-navigation-expand-more"
+        />
+        <Drawer
+          docked={false}
+          open={this.state.open}
+          onRequestChange={(open) => this.setState({open})}
+        >
+          <List style={{padding: '0px 0px'}}>
+            <ListItem
+              primaryText="TEAM TROLL"
+              disabled
+              style={{
+                textAlign: 'center',
+                color: 'grey',
+                padding: '16px 16px 0 16px'
+              }}
+            />
+            <Avatar
+              size={60}
+              style={{
+                display: 'block',
+                margin: '18px auto 18px auto'
+              }}
+            >
+              T
+            </Avatar>
+            { user ?
+              <ListItem
+                primaryText={email}
+                disabled
+                style={{
+                  textAlign: 'center',
+                  color: 'grey',
+                  padding: '0 16px 16px 16px'
+                }}
+              /> : ''
+            }
+            <Divider />
+            <ListItem
+              primaryText="Tasks"
+              leftIcon={<ActionDone />}
+              linkButton
+              containerElement={<Link id="tasks" to="/" />}
+              onTouchTap={this.handleClose.bind(this)}
+            />
+            <ListItem
+              primaryText="Calendar"
+              leftIcon={<DateRange />}
+              linkButton
+              containerElement={<Link id="calendar" to="/calendar" />}
+              onTouchTap={this.handleClose.bind(this)}
+            />
+            <ListItem
+              primaryText="Social"
+              leftIcon={<SocialPeople />}
+              linkButton
+              containerElement={<Link id="social" to="/social" />}
+              onTouchTap={this.handleClose.bind(this)}
+            />
+            <Divider />
+            <ListItem
+              primaryText="Help Center"
+              leftIcon={<ActionHelp />}
+              onTouchTap={this.handleClose.bind(this)}
+            />
+            <ListItem
+              primaryText="About Us"
+              leftIcon={<ActionFace />}
+              onTouchTap={this.handleClose.bind(this)}
+            />
+            { !user ?
+              <ListItem
+                primaryText="Register"
+                leftIcon={<PersonAdd/>}
+                linkButton
+                containerElement={<Link to="/signup" />}
+                onTouchTap={this.handleClose.bind(this)}
+                id="register"
+                style={{
+                  position: 'absolute'
+                }}
+              /> : ''
+            }
+            { !user ?
+              <ListItem
+                primaryText="Sign In"
+                leftIcon={<ActionInput/>}
+                linkButton
+                containerElement={<Link to="/signin" />}
+                onTouchTap={this.handleClose.bind(this)}
+                id="login"
+                style={{
+                  position: 'absolute'
+                }}
+              /> : ''
+            }
+            { user ?
+              <ListItem
+                primaryText="Sign Out"
+                leftIcon={<ArrowBack/>}
+                linkButton
+                containerElement={<Link to="/" />}
+                onTouchTap={this.handleLogOut.bind(this)}
+                id="logout"
+                  style={{
+                  position: 'absolute'
+                }}
+              /> : ''
+            }
+          </List>
+
+        </Drawer>
+      </div>
+    );
+
+    /*
     return (
       <div>
         <AppBar
@@ -152,6 +285,7 @@ export default class Menu extends Component {
         </Drawer>
       </div>
     );
+    */
   }
   
 }

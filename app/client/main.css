@@ -93,8 +93,8 @@ form button {
 
 /** Menu **/
 #register, #user-email {
-  width: 100%;
   bottom: 48px;
+  width: 100%;
 }
 
 #login, #logout {
