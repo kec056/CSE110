@@ -9,6 +9,7 @@ import ChevronRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import {grey400} from 'material-ui/styles/colors';
 import Paper from 'material-ui/Paper';
+import SnackBar from 'material-ui/SnackBar';
 
 import { Tasks } from '../api/Tasks.js';
 

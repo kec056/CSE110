@@ -34,16 +34,9 @@ export default class Tasklist extends React.Component {
         mode: "left",
     }
   }
-  //submit task
-
-  renderTasks() {
-    return this.props.tasks.map(task =>
-      	<TasklistItem key={task._id} task={task} />
-    );
-  }
 
   renderTitle(){
-    return(
+    return (
       <div className="title">
         <header>
           <h1>Tasks</h1>
@@ -53,13 +46,13 @@ export default class Tasklist extends React.Component {
   }
 
   renderTabs(){
-    return(
+    return (
       <div className="tabs">
         <Tabs
           value={this.state.mode}
           onChange={(mode)=>{this.setState({ mode: mode,});}
-          }
-        >
+          }>
+
           <Tab label="Planned" value="left" >
           </Tab>
           <Tab label="Completed" value="right">
@@ -68,26 +61,89 @@ export default class Tasklist extends React.Component {
       </div>
     )
   }
+  
+  // render both completed and uncompleted tasks
+  // currently not used
+  renderTasks() {
+    return this.props.tasks.map((task) =>
+      	<TasklistItem key={task._id} task={task} />
+    );
+  }
+  
+  // render only uncompleted task
+  // currently used
+  renderPlannedTasks() {
+    let filteredPlannedTasks = this.props.tasks;
 
-  renderTasklistBody(){
+    filteredPlannedTasks = filteredPlannedTasks.filter(task => !task.checked);
+
+    // if All tasks completed
+    let taskCount = Tasks.find({ checked: { $ne: true } }).count();
+    
+    if (taskCount == 0) {
+      return (
+        <div><h2>All Done!!</h2></div>
+        );
+    } else {
+      return filteredPlannedTasks.map((task) => (
+        <TasklistItem key={task._id} task={task} /> 
+      ));
+    }
+  }
+  
+  // render only completed tasks
+  // used for completed tasks tab
+  renderCompletedTasks() {
+    let filteredCompletedTasks = this.props.tasks;
+    
+    filteredCompletedTasks = filteredCompletedTasks.filter(task => task.checked);
+    
+    return filteredCompletedTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} /> 
+    ));
+  }
+
+  renderTasklistPlanned(){
     return(
       <div className="text">
           { (this.state.mode == "left") ?
           <div className="tasklistbody">
-            {this.renderTasks()}
+            {this.renderPlannedTasks()}
           </div> : ''
           }
       </div>
     )
   }
+
+  renderTasklistComplete(){
+    return(
+      <div className="text">
+          { (this.state.mode == "right") ?
+          <div className="tasklistbody">
+            {this.renderCompletedTasks()}
+          </div> : ''
+          }
+      </div>
+    )
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={darkMuiTheme}>
         <div className="container">
-          <MuiThemeProvider muiTheme={getMuiTheme()}>
-            {this.renderTasklistBody()}
-          </MuiThemeProvider>
+          
+          {/* Render Tabs */}
           {this.renderTabs()}
+
+          {/* Render Planned Tasks */}
+          <MuiThemeProvider muiTheme={getMuiTheme()}>
+            {this.renderTasklistPlanned()}
+          </MuiThemeProvider>
+  
+          {/* Render Planned Tasks */}
+          <MuiThemeProvider muiTheme={getMuiTheme()}>
+            {this.renderTasklistComplete()}
+          </MuiThemeProvider>
 
         </div>
       </MuiThemeProvider>
