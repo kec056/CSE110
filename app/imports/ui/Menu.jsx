@@ -11,6 +11,7 @@ import Avatar from 'material-ui/Avatar';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import DateRange from 'material-ui/svg-icons/action/date-range';
 import SocialPeople from 'material-ui/svg-icons/social/people';
+import ActionSettings from 'material-ui/svg-icons/action/settings';
 import ActionHelp from 'material-ui/svg-icons/action/help';
 import ActionFace from 'material-ui/svg-icons/action/face';
 import PersonAdd from 'material-ui/svg-icons/social/person-add';
@@ -61,6 +62,9 @@ export default class Menu extends Component {
         break;
       case "/social":
         this.title = "Social";
+        break;
+      case "/settings":
+        this.title = "Settings";
         break;
       case "/signin":
         this.title = "Sign In";
@@ -143,6 +147,11 @@ export default class Menu extends Component {
             />
             <Divider />
             <ListItem
+              primaryText="Settings"
+              leftIcon={<ActionSettings />}
+              onTouchTap={this.handleClose.bind(this)}
+            />
+            <ListItem
               primaryText="Help Center"
               leftIcon={<ActionHelp />}
               onTouchTap={this.handleClose.bind(this)}
@@ -196,96 +205,6 @@ export default class Menu extends Component {
         </Drawer>
       </div>
     );
-
-    /*
-    return (
-      <div>
-        <AppBar
-          title={this.title}
-          onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-        />
-        <Drawer
-          docked={false}
-          open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
-        >
-          <MenuItem
-            linkButton
-            containerElement={<Link id="tasks" to="/" />}
-            onTouchTap={this.handleClose.bind(this)}
-          >
-            Tasks
-          </MenuItem>
-          <MenuItem
-            linkButton
-            containerElement={<Link id="calendar" to="/calendar" />}
-            onTouchTap={this.handleClose.bind(this)}
-          >
-            Calendar
-          </MenuItem>
-          <MenuItem
-            linkButton
-            containerElement={<Link id="social" to="/social" />}
-            onTouchTap={this.handleClose.bind(this)}
-          >
-            Social
-          </MenuItem>
-          { !user ?
-            <MenuItem
-              linkButton
-              containerElement={<Link to="/signup" />}
-              onTouchTap={this.handleClose.bind(this)}
-              id="register"
-              style={{
-                  position: 'absolute'
-              }}
-            >
-              Register
-            </MenuItem> : ''
-          }
-          { !user ?
-            < MenuItem
-              linkButton
-              containerElement={<Link to="/signin" />}
-              onTouchTap={this.handleClose.bind(this)}
-              id="login"
-              style={{
-                position: 'absolute'
-              }}
-            >
-              Sign In
-            </MenuItem> : ''
-          }
-          { user ?
-            < MenuItem
-              disabled
-              id="user-email"
-              style={{
-                position: 'absolute',
-                lineHeight: '36px'
-              }}
-            >
-              Signed in as:<br/>{email}
-            </MenuItem> : ''
-          }
-          { user ?
-            < MenuItem
-              linkButton
-              containerElement={<Link to="/" />}
-              onTouchTap={this.handleLogOut.bind(this)}
-              id="logout"
-              style={{
-                position: 'absolute'
-              }}
-            >
-              Sign Out
-            </MenuItem> : ''
-          }
-        </Drawer>
-      </div>
-    );
-    */
   }
   
 }
