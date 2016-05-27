@@ -124,7 +124,7 @@ export class Tasklist extends React.Component {
             {this.renderTasklistPlanned()}
           </MuiThemeProvider>
 
-          {/* Render Planned Tasks */}
+          {/* Render Completed Tasks */}
           <MuiThemeProvider muiTheme={getMuiTheme()}>
             {this.renderTasklistComplete()}
           </MuiThemeProvider>

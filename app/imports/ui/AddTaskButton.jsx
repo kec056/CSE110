@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import IconButton from 'material-ui/IconButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
@@ -11,94 +10,93 @@ import MenuItem from 'material-ui/MenuItem';
 
 import { Tasks } from '../api/Tasks.js';
 const styles = {
-  icon:{
+  icon: {
     width: 27,
     height: 27,
-    fill: 'white'
+    fill: 'white',
   },
-  frame:{
+  frame: {
     width: 49,
     height: 49,
     padding: 0,
   },
-  dropMenu:{
+  dropMenu: {
     width: '100%',
-  }
-}
+  },
+};
 
 export default class AddTaskButton extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state ={
+    this.state = {
       newTaskPrompt: false,
       timeMenu: 1,
       priorityMenu: 1,
     };
   }
 
-  //submit task
-  handleSubmit(event) {
+  // submit task
+  handleSubmit() {
     const text = this.refs.textFieldValue.getValue();
     const time = this.state.timeMenu;
     const priority = this.state.priorityMenu;
-	const checked = false;
+    const checked = false;
 
-    if (text != ''){
-      this.setState({newTaskPrompt:false});
+    if (text !== '') {
+      this.setState({ newTaskPrompt: false });
       Tasks.insert({
         text,
         time,
-	    checked,
+        checked,
         priority,
         createdAt: new Date(),
       });
     }
   }
 
-  renderAddIcon(){
-    return(
-      <IconButton 
-        iconStyle={styles.icon} 
+  renderAddIcon() {
+    return (
+      <IconButton
+        iconStyle={styles.icon}
         style={styles.frame}
         onFocus={
-          ()=>{
+          () => {
             this.setState({
-              newTaskPrompt:true, 
-              timeMenu: 1, 
-              priorityMenu: 1
+              newTaskPrompt: true,
+              timeMenu: 1,
+              priorityMenu: 1,
             });
           }
         }
       >
         <ContentAdd />
       </IconButton>
-    )
+    );
   }
 
-  renderAddPrompt(){
+  renderAddPrompt() {
     const actionChoice = [
       <FlatButton
         label="Cancel"
         primary={true}
-        
         onTouchTap={
-          ()=>{
-            this.setState({newTaskPrompt:false});
+          () => {
+            this.setState({ newTaskPrompt: false });
           }
         }
       />,
       <FlatButton
         label="Add"
         primary={true}
-        keyboardFocused={true}   
+        keyboardFocused={true}
         onTouchTap={
-          ()=>{
+          () => {
             this.handleSubmit(this);
           }
         }
-      />
+      />,
     ];
-    return(
+    return (
       <Dialog
         title="New Task"
         actions={actionChoice}
@@ -106,18 +104,18 @@ export default class AddTaskButton extends React.Component {
         open={this.state.newTaskPrompt}
         repositionOnUpdate={false}
         onRequestClose={
-          ()=>{
-            this.setState({newTaskPrompt:false});
+          () => {
+            this.setState({ newTaskPrompt: false });
           }
         }
       >
-        <TextField 
+        <TextField
           hintText="Title"
           fullWidth={true}
           ref="textFieldValue"
           onKeyDown={
-            (e)=>{
-              if(e.key == "Enter"){
+            (e) => {
+              if (e.key === 'Enter') {
                 this.handleSubmit(this);
               }
             }
@@ -125,38 +123,36 @@ export default class AddTaskButton extends React.Component {
         />
         <SelectField
           value={this.state.timeMenu}
-          onChange={(event, index, value)=>{this.setState({timeMenu: value});}}
+          onChange={(event, index, value) => { this.setState({ timeMenu: value }); }}
           autoWidth={true}
           style={styles.dropMenu}
         >
-          <MenuItem value={1} primaryText="Default Time" />
-          <MenuItem value={2} primaryText="Morning" />
-          <MenuItem value={3} primaryText="Afternoon"/>
-          <MenuItem value={4} primaryText="Evening" />
+          <MenuItem value={1} primaryText="Morning" />
+          <MenuItem value={2} primaryText="Afternoon" />
+          <MenuItem value={3} primaryText="Evening" />
         </SelectField>
 
         <SelectField
           value={this.state.priorityMenu}
-          onChange={(event, index, value)=>{this.setState({priorityMenu: value});}}
+          onChange={(event, index, value) => { this.setState({ priorityMenu: value }); }}
           autoWidth={true}
           style={styles.dropMenu}
         >
-          <MenuItem value={1} primaryText="Default Priority" />
-          <MenuItem value={2} primaryText="Low Priority" />
-          <MenuItem value={3} primaryText="Medium Priority" />
-          <MenuItem value={4} primaryText="High Priority" />
+          <MenuItem value={1} primaryText="Low Priority" />
+          <MenuItem value={2} primaryText="Medium Priority" />
+          <MenuItem value={3} primaryText="High Priority" />
         </SelectField>
       </Dialog>
-    )
+    );
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <div>
         {this.renderAddIcon()}
         {this.renderAddPrompt()}
       </div>
-    )
+    );
   }
 }
 
