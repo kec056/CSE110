@@ -5,6 +5,11 @@ import AppBar from 'material-ui/AppBar';
 
 import { Link } from 'react-router';
 
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
+import AddButton from 'material-ui/svg-icons/content/add';
+import AddTaskButton from './AddTaskButton.jsx';
+
 export default class Menu extends Component {
 
   constructor(props) {
@@ -70,11 +75,17 @@ export default class Menu extends Component {
 
     return (
       <div>
-        <AppBar
-          title={this.title}
-          onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-        />
+        { this.props.path == "/" ?
+          <AppBar
+            title={this.title}
+            onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
+            iconElementRight={<AddTaskButton/>}
+          /> :
+          <AppBar
+            title={this.title}
+            onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
+          />
+        }
         <Drawer
           docked={false}
           open={this.state.open}
