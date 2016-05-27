@@ -17,6 +17,10 @@ export default class Calendar extends Component {
         <BigCalendar
           events={events}
           defaultDate={new Date(2015, 3, 1)}
+          formats={{
+            dayFormat: 'ddd MM/DD',
+            dayHeaderFormat: 'ddd MMM DD',
+          }}
         />
       </div>
     );
