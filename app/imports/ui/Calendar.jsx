@@ -15,8 +15,14 @@ export default class Calendar extends Component {
     return (
       <div className="container">
         <BigCalendar
+          selectable
           events={events}
           defaultDate={new Date(2015, 3, 1)}
+          onSelectEvent={event => alert(event.title)}
+          onSelectSlot={(slotInfo) => alert(
+            'selected slot: \n\nstart ${slotInfo.start.toLocaleString()}' +
+            '\nend: ${slotInfo.end.toLocaleString()}'
+          )}
           formats={{
             dayFormat: 'ddd MM/DD',
             dayHeaderFormat: 'ddd MMM DD',
