@@ -7,6 +7,8 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Checkbox from 'material-ui/Checkbox';
+import DatePicker from 'material-ui/DatePicker';
 
 import { Tasks } from '../api/Tasks.js';
 const styles = {
@@ -20,8 +22,18 @@ const styles = {
     height: 49,
     padding: 0,
   },
-  dropMenu: {
+  menuWidth: {
+    width: 'calc(100% - 12px)',
+    marginLeft: 7,
+  },
+  block: {
     width: '100%',
+  },
+  checkbox: {
+    marginTop: 15,
+    marginBottom: 3,
+    marginRight: 0,
+    marginLeft: 7,
   },
 };
 
@@ -30,6 +42,7 @@ export default class AddTaskButton extends React.Component {
     super(props);
     this.state = {
       newTaskPrompt: false,
+      scheduleTask: false,
       timeMenu: 1,
       priorityMenu: 1,
     };
@@ -41,16 +54,43 @@ export default class AddTaskButton extends React.Component {
     const time = this.state.timeMenu;
     const priority = this.state.priorityMenu;
     const checked = false;
+    const schedule = this.state.scheduleTask;
+    let startDate = '';
+    let endDate = '';
 
     if (text !== '') {
-      this.setState({ newTaskPrompt: false });
-      Tasks.insert({
-        text,
-        time,
-        checked,
-        priority,
-        createdAt: new Date(),
-      });
+      if (!schedule) {
+        this.setState({ newTaskPrompt: false });
+        Tasks.insert({
+          text,
+          time,
+          checked,
+          priority,
+          schedule,
+          createdAt: new Date(),
+        });
+      }
+      else if (schedule) {
+        startDate = this.refs.start.state.date;
+        endDate = this.refs.end.state.date;
+        console.log(endDate);
+        console.log(startDate);
+
+        if (startDate !== undefined && endDate !== undefined) {
+          this.setState({ newTaskPrompt: false });
+
+          Tasks.insert({
+            text,
+            time,
+            checked,
+            priority,
+            schedule,
+            startDate,
+            endDate,
+            createdAt: new Date(),
+          });
+        }
+      }
     }
   }
 
@@ -63,6 +103,7 @@ export default class AddTaskButton extends React.Component {
           () => {
             this.setState({
               newTaskPrompt: true,
+              scheduleTask: false,
               timeMenu: 1,
               priorityMenu: 1,
             });
@@ -71,6 +112,26 @@ export default class AddTaskButton extends React.Component {
       >
         <ContentAdd />
       </IconButton>
+    );
+  }
+  renderDatePicker() {
+    return (
+      <div>
+        <DatePicker
+          hintText="Start Date"
+          ref="start"
+          disabled={!this.state.scheduleTask}
+          textFieldStyle={{ width: '100%' }}
+          style={styles.menuWidth}
+        />
+        <DatePicker
+          hintText="End Date"
+          ref="end"
+          disabled={!this.state.scheduleTask}
+          textFieldStyle={{ width: '100%' }}
+          style={styles.menuWidth}
+        />
+      </div>
     );
   }
 
@@ -103,6 +164,7 @@ export default class AddTaskButton extends React.Component {
         modal={true}
         open={this.state.newTaskPrompt}
         repositionOnUpdate={false}
+        contentStyle={{ top: '-50px' }}
         onRequestClose={
           () => {
             this.setState({ newTaskPrompt: false });
@@ -113,6 +175,7 @@ export default class AddTaskButton extends React.Component {
           hintText="Title"
           fullWidth={true}
           ref="textFieldValue"
+          style={styles.menuWidth}
           onKeyDown={
             (e) => {
               if (e.key === 'Enter') {
@@ -125,7 +188,7 @@ export default class AddTaskButton extends React.Component {
           value={this.state.timeMenu}
           onChange={(event, index, value) => { this.setState({ timeMenu: value }); }}
           autoWidth={true}
-          style={styles.dropMenu}
+          style={styles.menuWidth}
         >
           <MenuItem value={1} primaryText="Morning" />
           <MenuItem value={2} primaryText="Afternoon" />
@@ -136,12 +199,33 @@ export default class AddTaskButton extends React.Component {
           value={this.state.priorityMenu}
           onChange={(event, index, value) => { this.setState({ priorityMenu: value }); }}
           autoWidth={true}
-          style={styles.dropMenu}
+          style={styles.menuWidth}
         >
           <MenuItem value={1} primaryText="Low Priority" />
           <MenuItem value={2} primaryText="Medium Priority" />
           <MenuItem value={3} primaryText="High Priority" />
         </SelectField>
+
+        <div className="scheduleTaskCheck">
+          <Checkbox
+            label="Schedule this Task"
+            labelPosition="left"
+            style={styles.checkbox}
+            checked={this.state.scheduleTask}
+            onCheck={
+              () => {
+                this.setState({ scheduleTask: !this.state.scheduleTask });
+              }
+            }
+          />
+
+          {(this.state.scheduleTask === true) ?
+            <div>
+              {this.renderDatePicker()}
+            </div> : ''
+          }
+
+        </div>
       </Dialog>
     );
   }

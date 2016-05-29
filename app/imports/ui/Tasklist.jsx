@@ -116,9 +116,6 @@ export class Tasklist extends React.Component {
       <MuiThemeProvider muiTheme={darkMuiTheme}>
         <div className="container">
 
-          {/* Render Tabs */}
-          {this.renderTabs()}
-
           {/* Render Planned Tasks */}
           <MuiThemeProvider muiTheme={getMuiTheme()}>
             {this.renderTasklistPlanned()}
@@ -128,6 +125,9 @@ export class Tasklist extends React.Component {
           <MuiThemeProvider muiTheme={getMuiTheme()}>
             {this.renderTasklistComplete()}
           </MuiThemeProvider>
+
+          {/* Render Tabs */}
+          {this.renderTabs()}
 
         </div>
       </MuiThemeProvider>
