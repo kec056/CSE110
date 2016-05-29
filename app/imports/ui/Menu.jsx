@@ -1,16 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 
 import { Link } from 'react-router';
 
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
-import AddButton from 'material-ui/svg-icons/content/add';
 import AddTaskButton from './AddTaskButton.jsx';
-import {List, ListItem} from 'material-ui/List';
-import Divider from 'material-ui/Divider'
+import { List, ListItem } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import DateRange from 'material-ui/svg-icons/action/date-range';
@@ -31,67 +27,67 @@ export default class Menu extends Component {
     };
   }
 
-  //handleToggle = () => this.setState({open: !this.state.open});
   handleToggle() {
     this.setState(
-      {open: !this.state.open}
+      { open: !this.state.open }
     );
   }
 
-  handleClose(name) {
+  handleClose() {
     this.setState(
-      {open: false }
+      { open: false }
     );
   }
 
   handleLogOut() {
     this.setState({
-      open: false
+      open: false,
     });
     Meteor.logout();
   }
 
   render() {
     const { user } = this.props;
-    let email = "";
-    if (user)
+    let email = '';
+    if (user) {
       email = user.emails[0].address;
+    }
 
     switch (this.props.path) {
-      case "/":
-        this.title = "Tasks";
+      case '/':
+        this.title = 'Tasks';
         break;
-      case "/calendar":
-        this.title = "Calendar";
+      case '/calendar':
+        this.title = 'Calendar';
         break;
-      case "/social":
-        this.title = "Social";
+      case '/social':
+        this.title = 'Social';
         break;
-      case "/settings":
-        this.title = "Settings";
+      case '/settings':
+        this.title = 'Settings';
         break;
-      case "/signin":
-        this.title = "Sign In";
+      case '/signin':
+        this.title = 'Sign In';
         break;
-      case "/signup":
-        this.title = "Register";
+      case '/signup':
+        this.title = 'Register';
         break;
-      case "/forgotpassword":
-        this.title = "Forgot Password";
+      case '/forgotpassword':
+        this.title = 'Forgot Password';
         break;
       default:
-        if (this.props.path.includes("reset-password"))
-          this.title = "Reset Password";
+        if (this.props.path.includes('reset-password'))
+          this.title = 'Reset Password';
         break;
     }
 
     return (
       <div>
-        { this.props.path == "/" ?
+        {this.props.path === '/' ?
           <AppBar
             title={this.title}
             onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
-            iconElementRight={<AddTaskButton/>}
+            iconElementRight={<AddTaskButton />}
           /> :
           <AppBar
             title={this.title}
@@ -101,35 +97,35 @@ export default class Menu extends Component {
         <Drawer
           docked={false}
           open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
+          onRequestChange={open => this.setState({ open })}
         >
-          <List style={{padding: '0px 0px'}}>
+          <List style={{ padding: '0px 0px' }}>
             <ListItem
               primaryText="TEAM TROLL"
               disabled
               style={{
                 textAlign: 'center',
                 color: 'grey',
-                padding: '16px 16px 0 16px'
+                padding: '16px 16px 0 16px',
               }}
             />
             <Avatar
               size={60}
               style={{
                 display: 'block',
-                margin: '18px auto 18px auto'
+                margin: '18px auto 18px auto',
               }}
             >
               T
             </Avatar>
-            { user ?
+            {user ?
               <ListItem
                 primaryText={email}
                 disabled
                 style={{
                   textAlign: 'center',
                   color: 'grey',
-                  padding: '0 16px 16px 16px'
+                  padding: '0 16px 16px 16px',
                 }}
               /> : ''
             }
@@ -171,42 +167,42 @@ export default class Menu extends Component {
               leftIcon={<ActionFace />}
               onTouchTap={this.handleClose.bind(this)}
             />
-            { !user ?
+            {!user ?
               <ListItem
                 primaryText="Register"
-                leftIcon={<PersonAdd/>}
+                leftIcon={<PersonAdd />}
                 linkButton
                 containerElement={<Link to="/signup" />}
                 onTouchTap={this.handleClose.bind(this)}
                 id="register"
                 style={{
-                  position: 'absolute'
+                  position: 'absolute',
                 }}
               /> : ''
             }
-            { !user ?
+            {!user ?
               <ListItem
                 primaryText="Sign In"
-                leftIcon={<ActionInput/>}
+                leftIcon={<ActionInput />}
                 linkButton
                 containerElement={<Link to="/signin" />}
                 onTouchTap={this.handleClose.bind(this)}
                 id="login"
                 style={{
-                  position: 'absolute'
+                  position: 'absolute',
                 }}
               /> : ''
             }
-            { user ?
+            {user ?
               <ListItem
                 primaryText="Sign Out"
-                leftIcon={<ArrowBack/>}
+                leftIcon={<ArrowBack />}
                 linkButton
                 containerElement={<Link to="/" />}
                 onTouchTap={this.handleLogOut.bind(this)}
                 id="logout"
-                  style={{
-                  position: 'absolute'
+                style={{
+                  position: 'absolute',
                 }}
               /> : ''
             }
