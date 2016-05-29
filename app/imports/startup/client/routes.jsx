@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 // route components
 import Tasklist from '../../ui/Tasklist.jsx';
@@ -17,18 +17,19 @@ import ResetPasswordPage from '../../ui/ResetPasswordPage.jsx';
 
 export const renderRoutes = () => (
   <Router history={browserHistory}>
-    <Route component={App}>
-      <Route path="/" component={Tasklist} />
-      <Route path="/calendar" component={Calendar} />
-      <Route path="/social" component={Social} />
+    <Route path="/" component={App}>
+      <IndexRoute component={Tasklist} />
+      <Route path="calendar" component={Calendar} />
+      <Route path="social" component={Social} />
+
+      <Route path="settings" component={Settings}>
+        <Route path="calendars" component={ManageExternalCalendars} />
+      </Route>
       
-      <Route path="/settings" component={Settings} />
-      <Route path="/settings/calendars" component={ManageExternalCalendars} />
-      
-      <Route path="/signup" component={SignUpPage} />
-      <Route path="/signin" component={SignInPage} />
-      <Route path="/forgotpassword" component={ForgotPasswordPage} />
-      <Route path="/reset-password/:token" component={ResetPasswordPage} />
+      <Route path="signup" component={SignUpPage} />
+      <Route path="signin" component={SignInPage} />
+      <Route path="forgotpassword" component={ForgotPasswordPage} />
+      <Route path="reset-password/:token" component={ResetPasswordPage} />
     </Route>
   </Router>
 );
