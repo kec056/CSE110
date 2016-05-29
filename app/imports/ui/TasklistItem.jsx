@@ -168,12 +168,14 @@ export default class TasklistItem extends Component {
     );
 
     let color = { fill: '#BDBDBD' };
-    if (this.props.task.time === 1) {
-      color = { fill: '#FDD835' };
-    } else if (this.props.task.time === 2) {
-      color = { fill: '#00BCD4' };
-    } else if (this.props.task.time === 3) {
-      color = { fill: '#512DA8' };
+    if (!this.props.task.schedule) {
+      if (this.props.task.time === 1) {
+        color = { fill: '#FDD835' };
+      } else if (this.props.task.time === 2) {
+        color = { fill: '#00BCD4' };
+      } else if (this.props.task.time === 3) {
+        color = { fill: '#512DA8' };
+      }
     }
 
     return (

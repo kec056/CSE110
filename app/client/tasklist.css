@@ -49,7 +49,15 @@
   color: black;
 }
 
-.scheduleTaskCheck {
-  padding-top: 10px;
+.datePicker {
+  padding-top: 2px;
 }
 
+.floatLeft {
+  width: 50%;
+  float: left;
+}
+.floatRight{
+  width: 50%;
+  float: right;
+}

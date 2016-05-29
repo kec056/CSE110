@@ -42,8 +42,9 @@ export class Tasklist extends React.Component {
           }
         >
 
-          <Tab label="Planned" value="left" />
-          <Tab label="Completed" value="right" />
+          <Tab label="Tasks" value="left" />
+          <Tab label="Completed" value="middle" />
+          <Tab label="Scheduled" value="right" />
         </Tabs>
       </div>
     );
@@ -59,8 +60,9 @@ export class Tasklist extends React.Component {
   // currently used
   renderPlannedTasks() {
     let filteredPlannedTasks = this.props.tasks;
-
+    filteredPlannedTasks = filteredPlannedTasks.filter(task => !task.schedule);
     filteredPlannedTasks = filteredPlannedTasks.filter(task => !task.checked);
+
 
     // if All tasks completed
     const taskCount = Tasks.find({ checked: { $ne: true } }).count();
@@ -87,6 +89,17 @@ export class Tasklist extends React.Component {
     ));
   }
 
+  renderScheduledTasks() {
+    let filteredScheduledTasks = this.props.tasks;
+
+    filteredScheduledTasks = filteredScheduledTasks.filter(task => !task.checked);
+    filteredScheduledTasks = filteredScheduledTasks.filter(task => task.schedule);
+
+    return filteredScheduledTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} />
+    ));
+  }
+
   renderTasklistPlanned() {
     return (
       <div className="text">
@@ -102,9 +115,21 @@ export class Tasklist extends React.Component {
   renderTasklistComplete() {
     return (
       <div className="text">
-          {(this.state.mode === 'right') ?
+          {(this.state.mode === 'middle') ?
             <div className="tasklistbody">
               {this.renderCompletedTasks()}
+            </div> : ''
+          }
+      </div>
+    );
+  }
+
+  renderTasklistScheduled() {
+    return (
+      <div className="text">
+          {(this.state.mode === 'right') ?
+            <div className="tasklistbody">
+              {this.renderScheduledTasks()}
             </div> : ''
           }
       </div>
@@ -116,15 +141,15 @@ export class Tasklist extends React.Component {
       <MuiThemeProvider muiTheme={darkMuiTheme}>
         <div className="container">
 
-          {/* Render Planned Tasks */}
+          {/* Render Tasks */}
           <MuiThemeProvider muiTheme={getMuiTheme()}>
-            {this.renderTasklistPlanned()}
+            <div>
+              {this.renderTasklistPlanned()}
+              {this.renderTasklistComplete()}
+              {this.renderTasklistScheduled()}
+            </div>
           </MuiThemeProvider>
 
-          {/* Render Completed Tasks */}
-          <MuiThemeProvider muiTheme={getMuiTheme()}>
-            {this.renderTasklistComplete()}
-          </MuiThemeProvider>
 
           {/* Render Tabs */}
           {this.renderTabs()}
