@@ -63,10 +63,10 @@ export default class AddTaskButton extends React.Component {
     const auto = this.state.autoSchedule;
     const duration = this.state.duration;
     const rep = this.state.rep;
-    let startDate = '';
-    let endDate = '';
-    let startTime = '';
-    let endTime = '';
+    let startDate = undefined;
+    let endDate = undefined;
+    let startTime = undefined;
+    let endTime = undefined;
 
     if (text !== '') {
       if (!schedule) {
@@ -77,6 +77,13 @@ export default class AddTaskButton extends React.Component {
           priority,
           checked,
           schedule,
+          auto,
+          startDate,
+          endDate,
+          startTime,
+          endTime,
+          duration,
+          rep,
           createdAt: new Date(),
         });
       } else if (schedule && !auto) {
@@ -85,14 +92,15 @@ export default class AddTaskButton extends React.Component {
         startTime = this.refs.starttime.state.time;
         endTime = this.refs.endtime.state.time;
 
-
         if (startDate !== undefined && endDate !== undefined &&
           startTime !== undefined && endTime !== undefined) {
+          startTime.setSeconds(0);
+          endTime.setSeconds(0);
           this.setState({ newTaskPrompt: false });
           Tasks.insert({
             text,
-            time: 0,
-            priority: 0,
+            time: 1,
+            priority: 1,
             checked,
             schedule,
             auto,
@@ -100,6 +108,8 @@ export default class AddTaskButton extends React.Component {
             endDate,
             startTime,
             endTime,
+            duration,
+            rep,
             createdAt: new Date(),
           });
         }
@@ -112,6 +122,10 @@ export default class AddTaskButton extends React.Component {
           checked,
           schedule,
           auto,
+          startDate,
+          endDate,
+          startTime,
+          endTime,
           duration,
           rep,
           createdAt: new Date(),
