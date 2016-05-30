@@ -96,12 +96,13 @@ export default class Menu extends Component {
           <AppBar
             title={this.title}
             onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
+            iconClassNameRight="muidocs-icon-navigation-expand-more"
           />
         }
         <Drawer
           docked={false}
           open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
+          onRequestChange={(open) => this.setState({oapen})}
         >
           <List style={{padding: '0px 0px'}}>
             <ListItem
