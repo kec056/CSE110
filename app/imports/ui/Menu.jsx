@@ -141,20 +141,22 @@ export default class Menu extends Component {
               primaryText="Calendar"
               leftIcon={<DateRange />}
               linkButton
-              containerElement={<Link id="calendar" to="/calendar" />}
+              containerElement={<Link id="calendar" to="calendar" />}
               onTouchTap={this.handleClose.bind(this)}
             />
             <ListItem
               primaryText="Social"
               leftIcon={<SocialPeople />}
               linkButton
-              containerElement={<Link id="social" to="/social" />}
+              containerElement={<Link id="social" to="social" />}
               onTouchTap={this.handleClose.bind(this)}
             />
             <Divider />
             <ListItem
               primaryText="Settings"
               leftIcon={<ActionSettings />}
+              linkButton
+              containerElement={<Link id="settings" to="settings" />}
               onTouchTap={this.handleClose.bind(this)}
             />
             <ListItem
@@ -172,7 +174,7 @@ export default class Menu extends Component {
                 primaryText="Register"
                 leftIcon={<PersonAdd />}
                 linkButton
-                containerElement={<Link to="/signup" />}
+                containerElement={<Link to="signup" />}
                 onTouchTap={this.handleClose.bind(this)}
                 id="register"
                 style={{
@@ -185,7 +187,7 @@ export default class Menu extends Component {
                 primaryText="Sign In"
                 leftIcon={<ActionInput />}
                 linkButton
-                containerElement={<Link to="/signin" />}
+                containerElement={<Link to="signin" />}
                 onTouchTap={this.handleClose.bind(this)}
                 id="login"
                 style={{

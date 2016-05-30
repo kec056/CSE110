@@ -22,10 +22,11 @@ export const renderRoutes = () => (
       <Route path="calendar" component={Calendar} />
       <Route path="social" component={Social} />
 
-      <Route path="settings" component={Settings}>
+      <Route path="settings">
+        <IndexRoute component={Settings} />
         <Route path="calendars" component={ManageExternalCalendars} />
       </Route>
-      
+
       <Route path="signup" component={SignUpPage} />
       <Route path="signin" component={SignInPage} />
       <Route path="forgotpassword" component={ForgotPasswordPage} />
