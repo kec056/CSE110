@@ -25,3 +25,4 @@ accounts-password
 brettle:accounts-anonymous-auto
 brettle:accounts-patch-ui
 brettle:accounts-login-state
+brettle:accounts-add-service

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AuthPage from './AuthPage.jsx';
 import { Link, browserHistory } from 'react-router';
 import { Accounts } from 'meteor/accounts-base';
+import { AccountsPatchUi } from 'meteor/brettle:accounts-patch-ui';
 
 export default class SignUpPage extends Component {
   constructor(props) {
@@ -55,7 +56,7 @@ export default class SignUpPage extends Component {
     const content = (
       <div className="wrapper-auth">
         <p className="subtitle-auth" >Signing up allows you sync tasks and events across devices</p>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={AccountsPatchUi.wrapWithMergedErrorSuppressed(this.onSubmit)}>
           <div className="list-errors">
             {errorMessages.map(msg => (
               <div className="list-item" key={msg}>{msg}</div>
