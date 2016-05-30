@@ -48,3 +48,16 @@
   margin: 0;
   color: black;
 }
+
+.datePicker {
+  padding-top: 2px;
+}
+
+.floatLeft {
+  width: 49.5%;
+  float: left;
+}
+.floatRight{
+  width: 49.5%;
+  float: right;
+}
