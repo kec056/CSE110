@@ -165,6 +165,7 @@ Tasklist.propTypes = {
 };
 
 export default createContainer(() => {
+  Meteor.subscribe('tasks');
   return {
     tasks: Tasks.find({}, { sort: { time: 1, priority: -1, createdAt: 1 } }).fetch(),
   };

@@ -4,6 +4,16 @@ import { check } from 'meteor/check';
 
 export const Tasks = new Mongo.Collection('tasks');
 
+if (Meteor.isServer) {
+  Meteor.publish('tasks', function tasksPublication() {
+    return Tasks.find({
+      $or: [
+        { owner: this.userId },
+      ],
+    });
+  });
+}
+
 Meteor.methods({
   'tasks.insert'(text, time, priority, checked, schedule, auto,
     startDate, endDate, startTime, endTime, duration, rep) {
@@ -73,7 +83,8 @@ Meteor.methods({
   },
   'tasks.edit'(newText, newTime, newPriority, schedule, auto,
     startDate, endDate, startTime, endTime, duration, rep, taskId) {
-    if (! this.userId) {
+    const task = Tasks.findOne(taskId);
+    if (task.owner !== this.userId) {
       throw new Meteor.Error('not-authorized');
     }
     if (newText !== '') {
@@ -127,7 +138,8 @@ Meteor.methods({
   },
   'tasks.remove'(taskId) {
     check(taskId, String);
-    if (! this.userId) {
+    const task = Tasks.findOne(taskId);
+    if (task.owner !== this.userId) {
       throw new Meteor.Error('not-authorized');
     }
     Tasks.remove(taskId);
@@ -135,7 +147,8 @@ Meteor.methods({
   'tasks.toggleCheck'(taskId, setChecked) {
     check(taskId, String);
     check(setChecked, Boolean);
-    if (! this.userId) {
+    const task = Tasks.findOne(taskId);
+    if (task.owner !== this.userId) {
       throw new Meteor.Error('not-authorized');
     }
     Tasks.update(taskId, { $set: { checked: setChecked } });
