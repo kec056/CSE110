@@ -64,45 +64,39 @@ export default class TasklistItem extends Component {
   }
 
   toggleChecked() {
-    Tasks.update(this.props.task._id, {
-      $set: { checked: !this.props.task.checked },
-    });
+    const taskId = this.props.task._id;
+    const setChecked = !this.props.task.checked;
+    Meteor.call('tasks.toggleCheck', taskId, setChecked);
   }
 
   deleteThisTask() {
-    Tasks.remove(this.props.task._id);
+    const taskId = this.props.task._id;
+    Meteor.call('tasks.remove', taskId);
   }
 
   handleEdit() {
+    const taskId = this.props.task._id;
     const newText = this.refs.textFieldValue.getValue();
     const newTime = this.state.timeMenu;
     const newPriority = this.state.priorityMenu;
 
-    const auto = this.state.autoSchedule;
+    let auto = this.state.autoSchedule;
+    let schedule = this.state.scheduleTask;
     const duration = this.state.duration;
     const rep = this.state.rep;
     let startDate = null;
     let endDate = null;
     let startTime = null;
     let endTime = null;
+    let closePrompt = false;
 
     if (newText !== '') {
       if (!this.state.scheduleTask) {
-        this.setState({ editPrompt: false });
-        Tasks.update(this.props.task._id, { $set: {
-          text: newText,
-          time: newTime,
-          priority: newPriority,
-          schedule: this.state.scheduleTask,
-          auto: this.state.autoSchedule,
-          startDate,
-          endDate,
-          startTime,
-          endTime,
-          duration,
-          rep,
-        } });
+        closePrompt = true;
+        auto = this.state.autoSchedule;
+        schedule = this.state.scheduleTask;
       } else if (this.state.scheduleTask && !this.state.autoSchedule) {
+        auto = this.state.autoSchedule;
         startDate = this.refs.startdate.state.date;
         endDate = this.refs.enddate.state.date;
         startTime = this.refs.starttime.state.time;
@@ -115,40 +109,21 @@ export default class TasklistItem extends Component {
 
         if (startDate !== undefined && endDate !== undefined &&
           startTime !== undefined && endTime !== undefined) {
-          startTime.setSeconds(0);
-          endTime.setSeconds(0);
-          this.setState({ editPrompt: false });
-          Tasks.update(this.props.task._id, { $set: {
-            text: newText,
-            time: newTime,
-            priority: newPriority,
-            schedule: this.state.scheduleTask,
-            auto: this.state.autoSchedule,
-            startDate,
-            endDate,
-            startTime,
-            endTime,
-            duration,
-            rep,
-          } });
+          closePrompt = true;
+          auto = this.state.autoSchedule;
+          schedule = this.state.scheduleTask;
         }
       } else if (this.state.scheduleTask && this.state.autoSchedule) {
-        this.setState({ editPrompt: false });
-        Tasks.update(this.props.task._id, { $set: {
-          text: newText,
-          time: newTime,
-          priority: newPriority,
-          schedule: this.state.scheduleTask,
-          auto: this.state.autoSchedule,
-          startDate,
-          endDate,
-          startTime,
-          endTime,
-          duration,
-          rep,
-        } });
+        closePrompt = true;
+        auto = this.state.autoSchedule;
+        schedule = this.state.scheduleTask;
       }
     }
+    if (closePrompt) {
+      this.setState({ editPrompt: false });
+    }
+    Meteor.call('tasks.edit', newText, newTime, newPriority, schedule, auto,
+    startDate, endDate, startTime, endTime, duration, rep, taskId);
   }
   renderEditNonScheduled() {
     return (
@@ -397,7 +372,6 @@ export default class TasklistItem extends Component {
         onTouchTap={
           () => {
             this.handleEdit(this);
-            console.log(this);
           }
         }
       />,
