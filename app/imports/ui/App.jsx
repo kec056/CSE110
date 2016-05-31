@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import ReactDOM from 'react-dom';
+import { AccountsPatchUi } from 'meteor/brettle:accounts-patch-ui';
 
 import Menu from './Menu.jsx';
 import {cyan500} from 'material-ui/styles/colors';

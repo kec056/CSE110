@@ -4,6 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 
 import { Link } from 'react-router';
+import { LoginState } from 'meteor/brettle:accounts-login-state';
 
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
@@ -54,7 +55,7 @@ export default class Menu extends Component {
   render() {
     const { user } = this.props;
     let email = "";
-    if (user)
+    if (user && user.hasOwnProperty('emails'))
       email = user.emails[0].address;
 
     switch (this.props.path) {
@@ -171,7 +172,7 @@ export default class Menu extends Component {
               leftIcon={<ActionFace />}
               onTouchTap={this.handleClose.bind(this)}
             />
-            { !user ?
+            { !LoginState.signedUp() ?
               <ListItem
                 primaryText="Register"
                 leftIcon={<PersonAdd/>}
@@ -184,7 +185,7 @@ export default class Menu extends Component {
                 }}
               /> : ''
             }
-            { !user ?
+            { !LoginState.signedUp() ?
               <ListItem
                 primaryText="Sign In"
                 leftIcon={<ActionInput/>}
@@ -197,7 +198,7 @@ export default class Menu extends Component {
                 }}
               /> : ''
             }
-            { user ?
+            { LoginState.signedUp() ?
               <ListItem
                 primaryText="Sign Out"
                 leftIcon={<ArrowBack/>}

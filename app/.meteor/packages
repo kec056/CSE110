@@ -22,3 +22,7 @@ insecure                # Allow all DB writes from clients (for prototyping)
 react-meteor-data
 force-ssl
 accounts-password
+brettle:accounts-anonymous-auto
+brettle:accounts-patch-ui
+brettle:accounts-login-state
+brettle:accounts-add-service
