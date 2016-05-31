@@ -63,75 +63,35 @@ export default class AddTaskButton extends React.Component {
     const auto = this.state.autoSchedule;
     const duration = this.state.duration;
     const rep = this.state.rep;
-    let startDate = undefined;
-    let endDate = undefined;
-    let startTime = undefined;
-    let endTime = undefined;
+    let startDate = null;
+    let endDate = null;
+    let startTime = null;
+    let endTime = null;
+    let closePrompt = false;
 
     if (text !== '') {
       if (!schedule) {
-        this.setState({ newTaskPrompt: false });
-        Tasks.insert({
-          text,
-          time,
-          priority,
-          checked,
-          schedule,
-          auto,
-          startDate,
-          endDate,
-          startTime,
-          endTime,
-          duration,
-          rep,
-          createdAt: new Date(),
-        });
+        closePrompt = true;
       } else if (schedule && !auto) {
         startDate = this.refs.startdate.state.date;
         endDate = this.refs.enddate.state.date;
         startTime = this.refs.starttime.state.time;
         endTime = this.refs.endtime.state.time;
-
+        startTime.setSeconds(0);
+        endTime.setSeconds(0);
         if (startDate !== undefined && endDate !== undefined &&
           startTime !== undefined && endTime !== undefined) {
-          startTime.setSeconds(0);
-          endTime.setSeconds(0);
-          this.setState({ newTaskPrompt: false });
-          Tasks.insert({
-            text,
-            time: 1,
-            priority: 1,
-            checked,
-            schedule,
-            auto,
-            startDate,
-            endDate,
-            startTime,
-            endTime,
-            duration,
-            rep,
-            createdAt: new Date(),
-          });
+          closePrompt = true;
         }
       } else if (schedule && auto) {
-        this.setState({ newTaskPrompt: false });
-        Tasks.insert({
-          text,
-          time,
-          priority: 0,
-          checked,
-          schedule,
-          auto,
-          startDate,
-          endDate,
-          startTime,
-          endTime,
-          duration,
-          rep,
-          createdAt: new Date(),
-        });
+        closePrompt = true;
       }
     }
+    if (closePrompt) {
+      this.setState({ newTaskPrompt: false });
+    }
+    Meteor.call('tasks.insert', text, time, priority, checked, schedule, auto,
+    startDate, endDate, startTime, endTime, duration, rep);
   }
 
   renderAddIcon() {
