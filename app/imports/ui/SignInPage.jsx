@@ -47,7 +47,7 @@ export default class SignInPage extends Component {
 
     const content = (
       <div className="wrapper-auth">
-        <p className="subtitle-auth">Signing in allows you to synchronize your lists across devices</p>
+        <p className="subtitle-auth">Warning: Logging in will delete all local tasks and replace it with cloud-synced tasks of the account being logged into.</p>
         <form onSubmit={this.onSubmit}>
           <div className="list-errors">
             {errorMessages.map(msg => (
