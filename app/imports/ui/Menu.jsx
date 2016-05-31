@@ -103,7 +103,7 @@ export default class Menu extends Component {
         <Drawer
           docked={false}
           open={this.state.open}
-          onRequestChange={(open) => this.setState({oapen})}
+          onRequestChange={(open) => this.setState({open})}
         >
           <List style={{padding: '0px 0px'}}>
             <ListItem
