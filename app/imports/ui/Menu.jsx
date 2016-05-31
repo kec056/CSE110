@@ -50,7 +50,7 @@ export default class Menu extends Component {
   render() {
     const { user } = this.props;
     let email = "";
-    if (user && user.hasOwnProperty('emails'))
+    if (user && user.hasOwnProperty('emails')) {
       email = user.emails[0].address;
     }
 
