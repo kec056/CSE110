@@ -26,6 +26,12 @@ const theme = getMuiTheme({
   },
 });
 
+const unchecked = getMuiTheme({
+  palette: {
+    canvasColor: '#ecfafc',
+  },
+});
+
 const styles = {
   menuWidth: {
     width: 'calc(100% - 12px)',
@@ -434,6 +440,7 @@ export default class TasklistItem extends Component {
     );
   }
   renderListItem() {
+    const checkStyle = this.props.task.checked ? 'crossOut' : 'taskItem';
     const rightIconMenu = (
       <IconMenu
         iconButtonElement={iconButtonElement}
@@ -459,10 +466,32 @@ export default class TasklistItem extends Component {
       </IconMenu>
     );
 
-    let color = { fill: '#BDBDBD' };
-    if (!this.props.task.schedule) {
+    let color = { fill: '#BDBDBD', opacity: '0.5' };
+    // add time color for scheduled task
+    if (this.props.task.schedule && !this.props.task.auto) {
+      const taskHour = this.props.task.startTime.getHours();
+
+      if (taskHour >= 6 && taskHour <= 12) {
+        color = { fill: '#FFCA28' };
+      } else if (taskHour <= 18) {
+        color = { fill: '#00BCD4' };
+      } else {
+        color = { fill: '#512DA8' };
+      }
+
+    // grey out completed task in planned list
+    } else if (this.props.task.checked && this.props.tab === 'left') {
       if (this.props.task.time === 1) {
-        color = { fill: '#FDD835' };
+        color = { fill: '#FFF59D' };
+      } else if (this.props.task.time === 2) {
+        color = { fill: '#80DEEA' };
+      } else if (this.props.task.time === 3) {
+        color = { fill: '#9575CD' };
+      }
+    // 
+    } else {
+      if (this.props.task.time === 1) {
+        color = { fill: '#FFCA28' };
       } else if (this.props.task.time === 2) {
         color = { fill: '#00BCD4' };
       } else if (this.props.task.time === 3) {
@@ -470,10 +499,18 @@ export default class TasklistItem extends Component {
       }
     }
 
+    let paperColor = getMuiTheme();
+    if (!this.props.task.checked || this.props.tab === 'middle') {
+      paperColor = unchecked;
+    } 
+
     return (
+      <MuiThemeProvider
+        muiTheme={paperColor}
+        >
       <Paper>
         <ListItem
-          primaryText={<p className="taskItem">{this.props.task.text}</p>}
+          primaryText={<p className={(this.props.tab === 'left') ? checkStyle : 'taskItem'}>{this.props.task.text}</p>}
           leftIcon={
             <Checkbox
               checked={this.props.task.checked}
@@ -483,6 +520,7 @@ export default class TasklistItem extends Component {
           rightIconButton={rightIconMenu}
         />
       </Paper>
+      </MuiThemeProvider>
     );
   }
 

@@ -61,11 +61,9 @@ export class Tasklist extends React.Component {
   renderPlannedTasks() {
     let filteredPlannedTasks = this.props.tasks;
     filteredPlannedTasks = filteredPlannedTasks.filter(task => !task.schedule);
-    filteredPlannedTasks = filteredPlannedTasks.filter(task => !task.checked);
-
 
     // if All tasks completed
-    const taskCount = Tasks.find({ checked: { $ne: true }, schedule: { $ne: true } }).count();
+    const taskCount = Tasks.find({ schedule: { $ne: true } }).count();
     if (taskCount === 0) {
       return (
         <h2 className="empty">All Done!</h2>
@@ -73,7 +71,7 @@ export class Tasklist extends React.Component {
     }
     else {
       return filteredPlannedTasks.map((task) => (
-        <TasklistItem key={task._id} task={task} />
+        <TasklistItem key={task._id} task={task} tab={this.state.mode}/>
       ));
     }
   }
@@ -85,7 +83,7 @@ export class Tasklist extends React.Component {
     filteredCompletedTasks = filteredCompletedTasks.filter(task => task.checked);
 
     return filteredCompletedTasks.map((task) => (
-      <TasklistItem key={task._id} task={task} />
+      <TasklistItem key={task._id} task={task} tab={this.state.mode}/>
     ));
   }
 
@@ -96,7 +94,7 @@ export class Tasklist extends React.Component {
     filteredScheduledTasks = filteredScheduledTasks.filter(task => task.schedule);
 
     return filteredScheduledTasks.map((task) => (
-      <TasklistItem key={task._id} task={task} />
+      <TasklistItem key={task._id} task={task} tab={this.state.mode}/>
     ));
   }
 
@@ -167,6 +165,6 @@ Tasklist.propTypes = {
 export default createContainer(() => {
   Meteor.subscribe('tasks');
   return {
-    tasks: Tasks.find({}, { sort: { time: 1, priority: -1, createdAt: 1 } }).fetch(),
+    tasks: Tasks.find({}, { sort: { checked: 1, time: 1, priority: -1, createdAt: 1 } }).fetch(),
   };
 }, Tasklist);
