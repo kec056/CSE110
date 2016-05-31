@@ -65,11 +65,11 @@ export class Tasklist extends React.Component {
 
 
     // if All tasks completed
-    const taskCount = Tasks.find({ checked: { $ne: true } }).count();
+    const taskCount = Tasks.find({ checked: { $ne: true }, schedule: { $ne: true } }).count();
     if (taskCount === 0) {
       return (
-        <div><h2>All Done!!</h2></div>
-        );
+        <h2 className="empty">All Done!</h2>
+      );
     }
     else {
       return filteredPlannedTasks.map((task) => (

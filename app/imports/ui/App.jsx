@@ -28,6 +28,7 @@ export default class App extends Component {
 
     return (
       <div id="app">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
         <MuiThemeProvider muiTheme={muiTheme}>
           <Menu path={this.props.location.pathname} user={currentUser} />
         </MuiThemeProvider>

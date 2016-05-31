@@ -11,8 +11,8 @@
 }
 .tasklistbody{
   padding-top: 48px;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
 }
 
 .new-task input{
@@ -60,4 +60,10 @@
 .floatRight{
   width: 49.5%;
   float: right;
+}
+.empty{
+  width: 100%;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: normal;
 }
