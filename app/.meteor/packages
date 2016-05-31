@@ -23,3 +23,7 @@ react-meteor-data
 force-ssl
 accounts-password
 momentjs:moment
+brettle:accounts-anonymous-auto
+brettle:accounts-patch-ui
+brettle:accounts-login-state
+brettle:accounts-add-service
