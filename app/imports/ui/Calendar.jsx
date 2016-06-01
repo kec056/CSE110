@@ -18,31 +18,18 @@ export class Calendar extends Component {
 
   render() {
     let eventsArray = new Array();
-    console.log("HI");
 
-    //let scheduledTasks = Tasks.find({schedule: true, auto: false});
     let scheduledTasks = this.props.tasks;
-    console.log(Tasks.find({schedule: true, auto: false}).count());
     scheduledTasks.forEach(function(task) {
-      let startYear = task.startDate.getFullYear();
-      let startMonth = task.startDate.getMonth();
-      let startDay = task.startDate.getDate();
-      let startHour = task.startTime.getHours();
-      let startMin = task.startTime.getMinutes();
-      let endYear = task.endDate.getFullYear();
-      let endMonth = task.endDate.getMonth();
-      let endDay = task.endDate.getDate();
-      let endHour = task.endTime.getHours();
-      let endMin = task.endTime.getMinutes();
       eventsArray.push({
         'title': task.text,
-        'start': new Date(startYear, startMonth, startDay, startHour, startMin, 0),
-        'end': new Date(endYear, endMonth, endDay, endHour, endMin, 0),
-        '_id': task._id,
+        'start': new Date(task.startDate.getFullYear(), task.startDate.getMonth(), task.startDate.getDate(),
+          task.startTime.getHours(), task.startTime.getMinutes(), 0),
+        'end': new Date(task.endDate.getFullYear(), task.endDate.getMonth(), task.endDate.getDate(),
+          task.endTime.getHours(), task.endTime.getMinutes(), 0),
       })
     });
 
-    //let eventArray = events();
     return (
       <div className="container" >
         <BigCalendar
@@ -69,6 +56,7 @@ Calendar.propTypes = {
 };
 
 export default createContainer(() => {
+  Meteor.subscribe('tasks');
   return {
     tasks: Tasks.find({schedule: true, auto: false}).fetch(),
   };
