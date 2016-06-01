@@ -5,12 +5,8 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import { GridList, GridTile } from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-
-import {Card, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import Avatar from 'material-ui/Avatar';
 
 const darkMuiTheme = getMuiTheme(darkBaseTheme);
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
@@ -162,6 +158,13 @@ export default class AboutUsPage extends Component {
         class="container"
         style={{
           height: '0px',
+          padding: '.2em 1em 0 1em',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          maxWidth: '60em',
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
         }}
       >
         <MuiThemeProvider muiTheme={lightMuiTheme}>
@@ -171,17 +174,31 @@ export default class AboutUsPage extends Component {
                 key={member.img}
                 style={{
                   margin: '10px auto',
-                  width: '30%',
+                  minWidth: '10em',
                 }}
               >
                 <CardHeader
+                  avatar={<Avatar src={member.img} size={100} />}
                   title={member.title}
                   subtitle={member.role}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                  textStyle={{
+                    paddingRight: '0px',
+                  }}
+                  titleStyle={{
+                    'font-size': '1.1em',
+                  }}
+                  subtitleStyle={{
+                    'font-size': '1em',
+                  }}
                 />
-                <CardMedia>
-                  <img src={member.img} />
-                </CardMedia>
-                <CardText>
+                <CardText
+                  style={{
+                    textAlign: 'justified',
+                  }}>
                   {member.bio}
                 </CardText>
               </Card>
