@@ -97,6 +97,7 @@ export default class Menu extends Component {
           <AppBar
             title={this.title}
             onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
+            iconClassNameRight="muidocs-icon-navigation-expand-more"
           />
         }
         <Drawer
