@@ -189,10 +189,10 @@ export default class AboutUsPage extends Component {
                     paddingRight: '0px',
                   }}
                   titleStyle={{
-                    'font-size': '1.1em',
+                    'fontSize': '1.1em',
                   }}
                   subtitleStyle={{
-                    'font-size': '1em',
+                    'fontSize': '1em',
                   }}
                 />
                 <CardText
