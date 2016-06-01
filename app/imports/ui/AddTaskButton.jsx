@@ -11,7 +11,6 @@ import Checkbox from 'material-ui/Checkbox';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 
-import { Tasks } from '../api/Tasks.js';
 const styles = {
   icon: {
     width: 27,

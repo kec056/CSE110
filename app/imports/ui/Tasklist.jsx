@@ -49,16 +49,53 @@ export class Tasklist extends React.Component {
       </div>
     );
   }
-  // render both completed and uncompleted tasks
-  // currently not used
-  renderTasks() {
-    return this.props.tasks.map((task) =>
-      <TasklistItem key={task._id} task={task} />
-    );
+  // renderes Non-scheduled Completed Tasks
+  renderNonScheduledCompletedTasks() {
+    let filteredTasks = this.props.tasks;
+    filteredTasks = filteredTasks.filter(task => !task.schedule);
+    filteredTasks = filteredTasks.filter(task => task.checked);
+
+    return filteredTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} tab={this.state.mode} />
+    ));
   }
-  // render only uncompleted task
-  // currently used
+  // render unchecked Morning tasks
+  renderMorningTasks(){
+    let filteredTasks = this.props.tasks;
+    filteredTasks = filteredTasks.filter(task => !task.schedule);
+    filteredTasks = filteredTasks.filter(task => !task.checked);
+    filteredTasks = filteredTasks.filter(task => (task.time === 1));
+
+    return filteredTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} tab={this.state.mode} />
+    ));
+  }
+  // render unchecked Afternoon tasks
+  renderAfternoonTasks(){
+    let filteredTasks = this.props.tasks;
+    filteredTasks = filteredTasks.filter(task => !task.schedule);
+    filteredTasks = filteredTasks.filter(task => !task.checked);
+    filteredTasks = filteredTasks.filter(task => (task.time === 2));
+
+    return filteredTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} tab={this.state.mode} />
+    ));
+  }
+  // render unchecked Evening tasks
+  renderEveningTasks(){
+    let filteredTasks = this.props.tasks;
+    filteredTasks = filteredTasks.filter(task => !task.schedule);
+    filteredTasks = filteredTasks.filter(task => !task.checked);
+    filteredTasks = filteredTasks.filter(task => (task.time === 3));
+
+    return filteredTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} tab={this.state.mode} />
+    ));
+  }
   renderPlannedTasks() {
+    const timeCheck = new Date();
+    const sortByTime = timeCheck.getHours();
+
     let filteredPlannedTasks = this.props.tasks;
     filteredPlannedTasks = filteredPlannedTasks.filter(task => !task.schedule);
 
@@ -68,12 +105,34 @@ export class Tasklist extends React.Component {
       return (
         <h2 className="empty">All Done!</h2>
       );
-    }
-    else {
-      return filteredPlannedTasks.map((task) => (
-        <TasklistItem key={task._id} task={task} tab={this.state.mode}/>
-      ));
-    }
+    } else if (sortByTime >= 6 && sortByTime <= 12) {
+      return (
+        <div>
+          {this.renderMorningTasks()}
+          {this.renderAfternoonTasks()}
+          {this.renderEveningTasks()}
+          {this.renderNonScheduledCompletedTasks()}
+        </div>
+      );
+    } else if (sortByTime <= 18) {
+      return (
+        <div>
+          {this.renderAfternoonTasks()}
+          {this.renderEveningTasks()}
+          {this.renderMorningTasks()}
+          {this.renderNonScheduledCompletedTasks()}
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {this.renderEveningTasks()}
+          {this.renderAfternoonTasks()}
+          {this.renderMorningTasks()}
+          {this.renderNonScheduledCompletedTasks()}
+        </div>
+      );
+    } 
   }
   // render only completed tasks
   // used for completed tasks tab

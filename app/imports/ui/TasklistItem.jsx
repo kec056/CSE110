@@ -18,8 +18,6 @@ import { grey400, darkBlack } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import { Tasks } from '../api/Tasks.js';
-
 const theme = getMuiTheme({
   palette: {
     disabledColor: darkBlack,
@@ -81,6 +79,8 @@ export default class TasklistItem extends Component {
   }
 
   handleEdit() {
+    console.log(Session.get('sort'));
+
     const taskId = this.props.task._id;
     const newText = this.refs.textFieldValue.getValue();
     const newTime = this.state.timeMenu;
@@ -481,6 +481,7 @@ export default class TasklistItem extends Component {
 
     // grey out completed task in planned list
     } else if (this.props.task.checked && this.props.tab === 'left') {
+    /*
       if (this.props.task.time === 1) {
         color = { fill: '#FFF59D' };
       } else if (this.props.task.time === 2) {
@@ -488,7 +489,8 @@ export default class TasklistItem extends Component {
       } else if (this.props.task.time === 3) {
         color = { fill: '#9575CD' };
       }
-    // 
+    */ 
+      color = { fill: '#BDBDBD', opacity: '0.9' };
     } else {
       if (this.props.task.time === 1) {
         color = { fill: '#FFCA28' };
@@ -502,24 +504,24 @@ export default class TasklistItem extends Component {
     let paperColor = getMuiTheme();
     if (!this.props.task.checked || this.props.tab === 'middle') {
       paperColor = unchecked;
-    } 
+    }
 
     return (
       <MuiThemeProvider
         muiTheme={paperColor}
-        >
-      <Paper>
-        <ListItem
-          primaryText={<p className={(this.props.tab === 'left') ? checkStyle : 'taskItem'}>{this.props.task.text}</p>}
-          leftIcon={
-            <Checkbox
-              checked={this.props.task.checked}
-              onCheck={this.toggleChecked.bind(this)}
-              iconStyle={color}
-            />}
-          rightIconButton={rightIconMenu}
-        />
-      </Paper>
+      >
+        <Paper>
+          <ListItem
+            primaryText={<p className={(this.props.tab === 'left') ? checkStyle : 'taskItem'}>{this.props.task.text}</p>}
+            leftIcon={
+              <Checkbox
+                checked={this.props.task.checked}
+                onCheck={this.toggleChecked.bind(this)}
+                iconStyle={color}
+              />}
+            rightIconButton={rightIconMenu}
+          />
+        </Paper>
       </MuiThemeProvider>
     );
   }
