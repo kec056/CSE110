@@ -127,9 +127,9 @@ export default class TasklistItem extends Component {
     }
     if (closePrompt) {
       this.setState({ editPrompt: false });
+      Meteor.call('tasks.edit', newText, newTime, newPriority, schedule, auto,
+        startDate, endDate, startTime, endTime, duration, rep, taskId);
     }
-    Meteor.call('tasks.edit', newText, newTime, newPriority, schedule, auto,
-    startDate, endDate, startTime, endTime, duration, rep, taskId);
   }
   renderEditNonScheduled() {
     return (
@@ -470,16 +470,9 @@ export default class TasklistItem extends Component {
     let color = { fill: '#BDBDBD' }; // initial grey for checkbox
     // add time color for scheduled task
     if (this.props.task.schedule && !this.props.task.auto) {
-      const taskHour = this.props.task.startTime.getHours();
-
-      if (taskHour >= 6 && taskHour <= 12) {
-        color = { fill: '#FFCA28' };
-      } else if (taskHour <= 18) {
-        color = { fill: '#00BCD4' };
-      } else {
-        color = { fill: '#512DA8' };
-      }
-
+      color = { fill: '#BDBDBD' };
+    } else if (this.props.task.schedule && this.props.task.auto) {
+      color = { fill: '#BDBDBD' };
     // grey out checkbox for completed list
     } else if (this.props.task.checked && this.props.tab === 'left') {
       color = { fill: 'E0E0E0' };
