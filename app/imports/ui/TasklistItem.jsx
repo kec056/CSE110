@@ -14,7 +14,8 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
-import { grey400, darkBlack } from 'material-ui/styles/colors';
+import { grey100, grey300, grey400, darkBlack, amber400, cyan500, deepPurple700 }
+  from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -28,7 +29,7 @@ const theme = getMuiTheme({
 // light grey for completed task in task view
 const checked = getMuiTheme({
   palette: {
-    canvasColor: '#F5F5F5',
+    canvasColor: grey100,
   },
 });
 
@@ -206,7 +207,7 @@ export default class TasklistItem extends Component {
     );
   }
   renderEditScheduleExisting() {
-    return(
+    return (
       <MuiThemeProvider
         muiTheme={(this.props.task.startTime === undefined) ?
           getMuiTheme() :
@@ -467,24 +468,19 @@ export default class TasklistItem extends Component {
     );
 
     // set checkbox color
-    let color = { fill: '#BDBDBD' }; // initial grey for checkbox
-    // add time color for scheduled task
-    if (this.props.task.schedule && !this.props.task.auto) {
-      color = { fill: '#BDBDBD' };
-    } else if (this.props.task.schedule && this.props.task.auto) {
-      color = { fill: '#BDBDBD' };
+    let color = { fill: grey400 };
     // grey out checkbox for completed list
-    } else if (this.props.task.checked && this.props.tab === 'left') {
-      color = { fill: 'E0E0E0' };
+    if (this.props.task.checked && this.props.tab === 'left') {
+      color = { fill: grey300 };
 
     // regular color (yellow/blue/purple)
-    } else {
+    } else if (!this.props.task.schedule) {
       if (this.props.task.time === 1) {
-        color = { fill: '#FFCA28' };
+        color = { fill: amber400 };
       } else if (this.props.task.time === 2) {
-        color = { fill: '#00BCD4' };
+        color = { fill: cyan500 };
       } else if (this.props.task.time === 3) {
-        color = { fill: '#512DA8' };
+        color = { fill: deepPurple700 };
       }
     }
 
@@ -528,4 +524,5 @@ export default class TasklistItem extends Component {
 
 TasklistItem.propTypes = {
   task: PropTypes.object.isRequired,
+  tab: PropTypes.object,
 };
