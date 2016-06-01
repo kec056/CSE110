@@ -106,11 +106,11 @@ export default class Menu extends Component {
         <Drawer
           docked={false}
           open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
+          onRequestChange={(open) => this.setState({ open })}
         >
           <List style={{padding: '0px 0px'}}>
             <ListItem
-              primaryText="TEAM TROLL"
+              primaryText="uTime"
               disabled
               style={{
                 textAlign: 'center',
