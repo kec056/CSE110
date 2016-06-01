@@ -43,6 +43,7 @@ export class Calendar extends Component {
             dayFormat: 'ddd MM/DD',
             dayHeaderFormat: 'ddd MMM DD',
           }}
+          views={['month', 'week', 'day']}
         />
       </div>
     );
