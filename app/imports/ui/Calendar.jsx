@@ -33,7 +33,6 @@ export class Calendar extends Component {
     return (
       <div className="container" >
         <BigCalendar
-          selectable
           events={eventsArray}
           onSelectEvent={event => alert(event.title)}
           onSelectSlot={(slotInfo) => alert(
