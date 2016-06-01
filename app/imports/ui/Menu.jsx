@@ -114,15 +114,15 @@ export default class Menu extends Component {
               disabled
               style={{
                 textAlign: 'center',
-                color: 'grey',
-                padding: '16px 16px 0 16px'
+                padding: '16px 16px 0 16px',
+                fontSize: 'x-large',
               }}
             />
             <Avatar
               size={60}
               style={{
                 display: 'block',
-                margin: '18px auto 18px auto'
+                margin: '18px auto 18px auto',
               }}
             >
               T
