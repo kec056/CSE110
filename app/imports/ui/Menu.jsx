@@ -74,6 +74,9 @@ export default class Menu extends Component {
       case "/aboutus":
         this.title = "About Us";
         break;
+      case "/helpcenter":
+        this.title = "Help Center";
+        break;
       case "/signin":
         this.title = "Sign In";
         break;
@@ -169,6 +172,8 @@ export default class Menu extends Component {
             <ListItem
               primaryText="Help Center"
               leftIcon={<ActionHelp />}
+              linkButton
+              containerElement={<Link id="help-center" to="/helpcenter" />}
               onTouchTap={this.handleClose.bind(this)}
             />
             <ListItem
