@@ -105,7 +105,7 @@ export default class AddTaskButton extends React.Component {
             let addTime = 1;
             if (checkHour >= 6 && checkHour <= 12) {
               addTime = 1;
-            } else if (checkHour <= 18) {
+            } else if (checkHour > 12 && checkHour <= 18) {
               addTime = 2;
             } else {
               addTime = 3;

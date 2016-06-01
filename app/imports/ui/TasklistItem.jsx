@@ -14,7 +14,7 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
-import { grey100, grey300, grey400, darkBlack, amber400, cyan500, deepPurple700 }
+import { grey100, grey300, grey400, grey500, darkBlack, amber400, cyan500, deepPurple700 }
   from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -468,9 +468,9 @@ export default class TasklistItem extends Component {
     );
 
     // set checkbox color
-    let color = { fill: grey400 };
+    let color = { fill: grey500 };
     // grey out checkbox for completed list
-    if (this.props.task.checked && this.props.tab === 'left') {
+    if (this.props.task.checked && (this.props.tab === 'left' || this.props.tab === 'right')) {
       color = { fill: grey300 };
 
     // regular color (yellow/blue/purple)
@@ -497,7 +497,7 @@ export default class TasklistItem extends Component {
         <Paper>
           <ListItem
             primaryText={<p
-              className={(this.props.tab === 'left') ? checkStyle : 'taskItem'}
+              className={(this.props.tab === 'left' || this.props.tab === 'right') ? checkStyle : 'taskItem'}
             >{this.props.task.text}</p>}
             leftIcon={
               <Checkbox
@@ -524,5 +524,5 @@ export default class TasklistItem extends Component {
 
 TasklistItem.propTypes = {
   task: PropTypes.object.isRequired,
-  tab: PropTypes.object,
+  tab: PropTypes.string,
 };

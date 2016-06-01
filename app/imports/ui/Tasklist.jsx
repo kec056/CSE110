@@ -114,7 +114,7 @@ export class Tasklist extends React.Component {
           {this.renderNonScheduledCompletedTasks()}
         </div>
       );
-    } else if (sortByTime <= 18) {
+    } else if (sortByTime > 12 && sortByTime <= 18) {
       return (
         <div>
           {this.renderAfternoonTasks()}
@@ -146,7 +146,7 @@ export class Tasklist extends React.Component {
     ));
   }
 
-  renderScheduledTasks() {
+  renderNonCheckedScheduled() {
     let filteredScheduledTasks = this.props.tasks;
 
     filteredScheduledTasks = filteredScheduledTasks.filter(task => !task.checked);
@@ -155,6 +155,24 @@ export class Tasklist extends React.Component {
     return filteredScheduledTasks.map((task) => (
       <TasklistItem key={task._id} task={task} tab={this.state.mode}/>
     ));
+  }
+  renderCheckedScheduled() {
+    let filteredScheduledTasks = this.props.tasks;
+
+    filteredScheduledTasks = filteredScheduledTasks.filter(task => task.checked);
+    filteredScheduledTasks = filteredScheduledTasks.filter(task => task.schedule);
+
+    return filteredScheduledTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} tab={this.state.mode}/>
+    ));
+  }
+  renderScheduledTasks() {
+    return (
+      <div>
+        {this.renderNonCheckedScheduled()}
+        {this.renderCheckedScheduled()}
+      </div>
+    );
   }
 
   renderTasklistPlanned() {
@@ -224,6 +242,6 @@ Tasklist.propTypes = {
 export default createContainer(() => {
   Meteor.subscribe('tasks');
   return {
-    tasks: Tasks.find({}, { sort: { checked: 1, time: 1, priority: -1, createdAt: 1 } }).fetch(),
+    tasks: Tasks.find({}, { sort: { schedule: -1, checked: 1, time: 1, priority: -1, createdAt: 1 } }).fetch(),
   };
 }, Tasklist);
