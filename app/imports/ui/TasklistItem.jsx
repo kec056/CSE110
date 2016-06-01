@@ -18,11 +18,17 @@ import { grey400, darkBlack } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import { Tasks } from '../api/Tasks.js';
-
 const theme = getMuiTheme({
   palette: {
     disabledColor: darkBlack,
+  },
+});
+
+// tasklist background color
+// light grey for completed task in task view
+const checked = getMuiTheme({
+  palette: {
+    canvasColor: '#F5F5F5',
   },
 });
 
@@ -121,9 +127,9 @@ export default class TasklistItem extends Component {
     }
     if (closePrompt) {
       this.setState({ editPrompt: false });
+      Meteor.call('tasks.edit', newText, newTime, newPriority, schedule, auto,
+        startDate, endDate, startTime, endTime, duration, rep, taskId);
     }
-    Meteor.call('tasks.edit', newText, newTime, newPriority, schedule, auto,
-    startDate, endDate, startTime, endTime, duration, rep, taskId);
   }
   renderEditNonScheduled() {
     return (
@@ -152,8 +158,8 @@ export default class TasklistItem extends Component {
       </div>
     );
   }
-  renderEditScheduleNew(){
-    return(
+  renderEditScheduleNew() {
+    return (
       <div className="datePicker">
         <div>
           <div className="floatLeft">
@@ -434,6 +440,7 @@ export default class TasklistItem extends Component {
     );
   }
   renderListItem() {
+    const checkStyle = this.props.task.checked ? 'crossOut' : 'taskItem';
     const rightIconMenu = (
       <IconMenu
         iconButtonElement={iconButtonElement}
@@ -459,10 +466,21 @@ export default class TasklistItem extends Component {
       </IconMenu>
     );
 
-    let color = { fill: '#BDBDBD' };
-    if (!this.props.task.schedule) {
+    // set checkbox color
+    let color = { fill: '#BDBDBD' }; // initial grey for checkbox
+    // add time color for scheduled task
+    if (this.props.task.schedule && !this.props.task.auto) {
+      color = { fill: '#BDBDBD' };
+    } else if (this.props.task.schedule && this.props.task.auto) {
+      color = { fill: '#BDBDBD' };
+    // grey out checkbox for completed list
+    } else if (this.props.task.checked && this.props.tab === 'left') {
+      color = { fill: 'E0E0E0' };
+
+    // regular color (yellow/blue/purple)
+    } else {
       if (this.props.task.time === 1) {
-        color = { fill: '#FDD835' };
+        color = { fill: '#FFCA28' };
       } else if (this.props.task.time === 2) {
         color = { fill: '#00BCD4' };
       } else if (this.props.task.time === 3) {
@@ -470,19 +488,31 @@ export default class TasklistItem extends Component {
       }
     }
 
+    // set completed task background to be greyed out
+    let paperColor = getMuiTheme();
+    if (this.props.task.checked && this.props.tab === 'left') {
+      paperColor = checked;
+    }
+
     return (
-      <Paper>
-        <ListItem
-          primaryText={<p className="taskItem">{this.props.task.text}</p>}
-          leftIcon={
-            <Checkbox
-              checked={this.props.task.checked}
-              onCheck={this.toggleChecked.bind(this)}
-              iconStyle={color}
-            />}
-          rightIconButton={rightIconMenu}
-        />
-      </Paper>
+      <MuiThemeProvider
+        muiTheme={paperColor}
+      >
+        <Paper>
+          <ListItem
+            primaryText={<p
+              className={(this.props.tab === 'left') ? checkStyle : 'taskItem'}
+            >{this.props.task.text}</p>}
+            leftIcon={
+              <Checkbox
+                checked={this.props.task.checked}
+                onCheck={this.toggleChecked.bind(this)}
+                iconStyle={color}
+              />}
+            rightIconButton={rightIconMenu}
+          />
+        </Paper>
+      </MuiThemeProvider>
     );
   }
 

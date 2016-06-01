@@ -49,6 +49,12 @@
   color: black;
 }
 
+.crossOut {
+  margin: 0;
+  color: #BDBDBD;
+  text-decoration: line-through;
+}
+
 .datePicker {
   padding-top: 2px;
 }

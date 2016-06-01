@@ -49,33 +49,90 @@ export class Tasklist extends React.Component {
       </div>
     );
   }
-  // render both completed and uncompleted tasks
-  // currently not used
-  renderTasks() {
-    return this.props.tasks.map((task) =>
-      <TasklistItem key={task._id} task={task} />
-    );
+  // renderes Non-scheduled Completed Tasks
+  renderNonScheduledCompletedTasks() {
+    let filteredTasks = this.props.tasks;
+    filteredTasks = filteredTasks.filter(task => !task.schedule);
+    filteredTasks = filteredTasks.filter(task => task.checked);
+
+    return filteredTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} tab={this.state.mode} />
+    ));
   }
-  // render only uncompleted task
-  // currently used
+  // render unchecked Morning tasks
+  renderMorningTasks(){
+    let filteredTasks = this.props.tasks;
+    filteredTasks = filteredTasks.filter(task => !task.schedule);
+    filteredTasks = filteredTasks.filter(task => !task.checked);
+    filteredTasks = filteredTasks.filter(task => (task.time === 1));
+
+    return filteredTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} tab={this.state.mode} />
+    ));
+  }
+  // render unchecked Afternoon tasks
+  renderAfternoonTasks(){
+    let filteredTasks = this.props.tasks;
+    filteredTasks = filteredTasks.filter(task => !task.schedule);
+    filteredTasks = filteredTasks.filter(task => !task.checked);
+    filteredTasks = filteredTasks.filter(task => (task.time === 2));
+
+    return filteredTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} tab={this.state.mode} />
+    ));
+  }
+  // render unchecked Evening tasks
+  renderEveningTasks(){
+    let filteredTasks = this.props.tasks;
+    filteredTasks = filteredTasks.filter(task => !task.schedule);
+    filteredTasks = filteredTasks.filter(task => !task.checked);
+    filteredTasks = filteredTasks.filter(task => (task.time === 3));
+
+    return filteredTasks.map((task) => (
+      <TasklistItem key={task._id} task={task} tab={this.state.mode} />
+    ));
+  }
   renderPlannedTasks() {
+    const timeCheck = new Date();
+    const sortByTime = timeCheck.getHours();
+
     let filteredPlannedTasks = this.props.tasks;
     filteredPlannedTasks = filteredPlannedTasks.filter(task => !task.schedule);
-    filteredPlannedTasks = filteredPlannedTasks.filter(task => !task.checked);
-
 
     // if All tasks completed
-    const taskCount = Tasks.find({ checked: { $ne: true }, schedule: { $ne: true } }).count();
+    const taskCount = Tasks.find({ schedule: { $ne: true } }).count();
     if (taskCount === 0) {
       return (
         <h2 className="empty">All Done!</h2>
       );
-    }
-    else {
-      return filteredPlannedTasks.map((task) => (
-        <TasklistItem key={task._id} task={task} />
-      ));
-    }
+    } else if (sortByTime >= 6 && sortByTime <= 12) {
+      return (
+        <div>
+          {this.renderMorningTasks()}
+          {this.renderAfternoonTasks()}
+          {this.renderEveningTasks()}
+          {this.renderNonScheduledCompletedTasks()}
+        </div>
+      );
+    } else if (sortByTime <= 18) {
+      return (
+        <div>
+          {this.renderAfternoonTasks()}
+          {this.renderEveningTasks()}
+          {this.renderMorningTasks()}
+          {this.renderNonScheduledCompletedTasks()}
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {this.renderEveningTasks()}
+          {this.renderAfternoonTasks()}
+          {this.renderMorningTasks()}
+          {this.renderNonScheduledCompletedTasks()}
+        </div>
+      );
+    } 
   }
   // render only completed tasks
   // used for completed tasks tab
@@ -85,7 +142,7 @@ export class Tasklist extends React.Component {
     filteredCompletedTasks = filteredCompletedTasks.filter(task => task.checked);
 
     return filteredCompletedTasks.map((task) => (
-      <TasklistItem key={task._id} task={task} />
+      <TasklistItem key={task._id} task={task} tab={this.state.mode}/>
     ));
   }
 
@@ -96,7 +153,7 @@ export class Tasklist extends React.Component {
     filteredScheduledTasks = filteredScheduledTasks.filter(task => task.schedule);
 
     return filteredScheduledTasks.map((task) => (
-      <TasklistItem key={task._id} task={task} />
+      <TasklistItem key={task._id} task={task} tab={this.state.mode}/>
     ));
   }
 
@@ -167,6 +224,6 @@ Tasklist.propTypes = {
 export default createContainer(() => {
   Meteor.subscribe('tasks');
   return {
-    tasks: Tasks.find({}, { sort: { time: 1, priority: -1, createdAt: 1 } }).fetch(),
+    tasks: Tasks.find({}, { sort: { checked: 1, time: 1, priority: -1, createdAt: 1 } }).fetch(),
   };
 }, Tasklist);

@@ -11,7 +11,6 @@ import Checkbox from 'material-ui/Checkbox';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 
-import { Tasks } from '../api/Tasks.js';
 const styles = {
   icon: {
     width: 27,
@@ -89,9 +88,9 @@ export default class AddTaskButton extends React.Component {
     }
     if (closePrompt) {
       this.setState({ newTaskPrompt: false });
+          Meteor.call('tasks.insert', text, time, priority, checked, schedule, auto,
+            startDate, endDate, startTime, endTime, duration, rep);
     }
-    Meteor.call('tasks.insert', text, time, priority, checked, schedule, auto,
-    startDate, endDate, startTime, endTime, duration, rep);
   }
 
   renderAddIcon() {
@@ -101,11 +100,21 @@ export default class AddTaskButton extends React.Component {
         style={styles.frame}
         onFocus={
           () => {
+            const time = new Date();
+            const checkHour = time.getHours();
+            let addTime = 1;
+            if (checkHour >= 6 && checkHour <= 12) {
+              addTime = 1;
+            } else if (checkHour <= 18) {
+              addTime = 2;
+            } else {
+              addTime = 3;
+            }
             this.setState({
               newTaskPrompt: true,
               scheduleTask: false,
               autoSchedule: false,
-              timeMenu: 1,
+              timeMenu: addTime,
               priorityMenu: 1,
               duration: 15,
               rep: 1,
