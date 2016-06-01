@@ -71,6 +71,9 @@ export default class Menu extends Component {
       case "/settings":
         this.title = "Settings";
         break;
+      case "/aboutus":
+        this.title = "About Us";
+        break;
       case "/signin":
         this.title = "Sign In";
         break;
@@ -171,6 +174,8 @@ export default class Menu extends Component {
             <ListItem
               primaryText="About Us"
               leftIcon={<ActionFace />}
+              linkButton
+              containerElement={<Link id="about-us" to="/aboutus" />}
               onTouchTap={this.handleClose.bind(this)}
             />
             { !LoginState.signedUp() ?
