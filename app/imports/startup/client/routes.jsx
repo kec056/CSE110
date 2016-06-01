@@ -11,6 +11,7 @@ import SignUpPage from '../../ui/SignUpPage.jsx';
 import SignInPage from '../../ui/SignInPage.jsx';
 import ForgotPasswordPage from '../../ui/ForgotPasswordPage.jsx';
 import ResetPasswordPage from '../../ui/ResetPasswordPage.jsx';
+import HelpCenterPage from '../../ui/HelpCenterPage.jsx';
 
 export const renderRoutes = () => (
   <Router history={browserHistory}>
@@ -23,6 +24,7 @@ export const renderRoutes = () => (
       <Route path="/signin" component={SignInPage} />
       <Route path="/forgotpassword" component={ForgotPasswordPage} />
       <Route path="/reset-password/:token" component={ResetPasswordPage} />
+      <Route path="/helpcenter" component={HelpCenterPage} />
     </Route>
   </Router>
 );

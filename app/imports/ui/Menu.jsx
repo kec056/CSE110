@@ -74,6 +74,9 @@ export default class Menu extends Component {
       case "/aboutus":
         this.title = "About Us";
         break;
+      case "/helpcenter":
+        this.title = "Help Center";
+        break;
       case "/signin":
         this.title = "Sign In";
         break;
@@ -106,23 +109,23 @@ export default class Menu extends Component {
         <Drawer
           docked={false}
           open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
+          onRequestChange={(open) => this.setState({ open })}
         >
           <List style={{padding: '0px 0px'}}>
             <ListItem
-              primaryText="TEAM TROLL"
+              primaryText="uTime"
               disabled
               style={{
                 textAlign: 'center',
-                color: 'grey',
-                padding: '16px 16px 0 16px'
+                padding: '16px 16px 0 16px',
+                fontSize: 'x-large',
               }}
             />
             <Avatar
               size={60}
               style={{
                 display: 'block',
-                margin: '18px auto 18px auto'
+                margin: '18px auto 18px auto',
               }}
             >
               T
@@ -169,6 +172,8 @@ export default class Menu extends Component {
             <ListItem
               primaryText="Help Center"
               leftIcon={<ActionHelp />}
+              linkButton
+              containerElement={<Link id="help-center" to="/helpcenter" />}
               onTouchTap={this.handleClose.bind(this)}
             />
             <ListItem
