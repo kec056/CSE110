@@ -65,12 +65,12 @@ export default class Menu extends Component {
       case "/calendar":
         this.title = "Calendar";
         break;
-      case "/social":
-        this.title = "Social";
-        break;
-      case "/settings":
-        this.title = "Settings";
-        break;
+      // case "/social":
+      //   this.title = "Social";
+      //   break;
+      // case "/settings":
+      //   this.title = "Settings";
+      //   break;
       case "/aboutus":
         this.title = "About Us";
         break;
@@ -156,19 +156,7 @@ export default class Menu extends Component {
               containerElement={<Link id="calendar" to="/calendar" />}
               onTouchTap={this.handleClose.bind(this)}
             />
-            <ListItem
-              primaryText="Social"
-              leftIcon={<SocialPeople />}
-              linkButton
-              containerElement={<Link id="social" to="/social" />}
-              onTouchTap={this.handleClose.bind(this)}
-            />
             <Divider />
-            <ListItem
-              primaryText="Settings"
-              leftIcon={<ActionSettings />}
-              onTouchTap={this.handleClose.bind(this)}
-            />
             <ListItem
               primaryText="Help Center"
               leftIcon={<ActionHelp />}

@@ -201,69 +201,53 @@ export default class AddTaskButton extends React.Component {
       </div>
     );
   }
-  renderAutoSchedule() {
-    return (
-      <div>
-        <SelectField
-          value={this.state.timeMenu}
-          onChange={(event, index, value) => { this.setState({ timeMenu: value }); }}
-          autoWidth={true}
-          style={styles.menuWidth}
-        >
-          <MenuItem value={1} primaryText="Morning" />
-          <MenuItem value={2} primaryText="Afternoon" />
-          <MenuItem value={3} primaryText="Evening" />
-        </SelectField>
-
-        <SelectField
-          value={this.state.duration}
-          onChange={(event, index, value) => { this.setState({ duration: value }); }}
-          autoWidth={true}
-          style={styles.menuWidth}
-        >
-          <MenuItem value={15} primaryText="15 Minutes" />
-          <MenuItem value={30} primaryText="30 Minutes" />
-          <MenuItem value={45} primaryText="45 Minutes" />
-          <MenuItem value={60} primaryText="1 Hour" />
-          <MenuItem value={120} primaryText="2 Hours" />
-          <MenuItem value={180} primaryText="3 Hours" />
-          <MenuItem value={240} primaryText="4 Hours" />
-        </SelectField>
-
-        <SelectField
-          value={this.state.rep}
-          onChange={(event, index, value) => { this.setState({ rep: value }); }}
-          autoWidth={true}
-          style={styles.menuWidth}
-        >
-          <MenuItem value={1} primaryText="Once a Week" />
-          <MenuItem value={2} primaryText="Twice a Week" />
-          <MenuItem value={3} primaryText="3 Times a Week" />
-          <MenuItem value={5} primaryText="5 Times a Week" />
-          <MenuItem value={7} primaryText="Everyday" />
-        </SelectField>
-      </div>
-    );
-  }
+  // renderAutoSchedule() {
+  //   return (
+  //     <div>
+  //       <SelectField
+  //         value={this.state.timeMenu}
+  //         onChange={(event, index, value) => { this.setState({ timeMenu: value }); }}
+  //         autoWidth={true}
+  //         style={styles.menuWidth}
+  //       >
+  //         <MenuItem value={1} primaryText="Morning" />
+  //         <MenuItem value={2} primaryText="Afternoon" />
+  //         <MenuItem value={3} primaryText="Evening" />
+  //       </SelectField>
+  //
+  //       <SelectField
+  //         value={this.state.duration}
+  //         onChange={(event, index, value) => { this.setState({ duration: value }); }}
+  //         autoWidth={true}
+  //         style={styles.menuWidth}
+  //       >
+  //         <MenuItem value={15} primaryText="15 Minutes" />
+  //         <MenuItem value={30} primaryText="30 Minutes" />
+  //         <MenuItem value={45} primaryText="45 Minutes" />
+  //         <MenuItem value={60} primaryText="1 Hour" />
+  //         <MenuItem value={120} primaryText="2 Hours" />
+  //         <MenuItem value={180} primaryText="3 Hours" />
+  //         <MenuItem value={240} primaryText="4 Hours" />
+  //       </SelectField>
+  //
+  //       <SelectField
+  //         value={this.state.rep}
+  //         onChange={(event, index, value) => { this.setState({ rep: value }); }}
+  //         autoWidth={true}
+  //         style={styles.menuWidth}
+  //       >
+  //         <MenuItem value={1} primaryText="Once a Week" />
+  //         <MenuItem value={2} primaryText="Twice a Week" />
+  //         <MenuItem value={3} primaryText="3 Times a Week" />
+  //         <MenuItem value={5} primaryText="5 Times a Week" />
+  //         <MenuItem value={7} primaryText="Everyday" />
+  //       </SelectField>
+  //     </div>
+  //   );
+  // }
   renderSchedulingFields() {
     return (
       <div>
-        <Checkbox
-          label="Schedule For Me"
-          labelPosition="left"
-          style={styles.checkbox}
-          checked={this.state.autoSchedule}
-          onCheck={
-            () => {
-              this.setState({
-                autoSchedule: !this.state.autoSchedule,
-                timeMenu: 1,
-                duration: 15,
-                rep: 1,
-              });
-            }
-          }
-        />
         {(!this.state.autoSchedule) ?
           <div>
             {this.renderDatePicker()}
